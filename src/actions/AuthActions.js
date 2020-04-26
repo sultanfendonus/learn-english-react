@@ -38,17 +38,13 @@ export const registerUser = (user, history) => async (dispatch) => {
         const {email, password, phone_number, first_name, last_name} = user;
 
         response = await MainApi.post('/user/sign-up', user)
-        console.log(response)
         if(response.status === 201){
             localStorage.setItem('token', response.data.token);
             dispatch({type : REGISTER_USER_SUCCESS ,payload: response.data});
-            // window.location = "/"
             history.push('/')
-        }else {
-            dispatch({type : REGISTER_USER_ERROR ,payload: {message: response.data.errors[0].msg}});
         }
-
     } catch (error) {
+        dispatch({type : REGISTER_USER_ERROR ,payload: {message: error.response.data.errors[0].msg}});
         console.log(error);
     }
 }
