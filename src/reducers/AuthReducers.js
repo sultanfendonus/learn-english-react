@@ -13,6 +13,7 @@ import {
     RESET_PASSWORD_SUCCESS,
     RESET_PASSWORD_ERROR,
     RESET_ERROR,
+
 } from '../actions/actions';
 
 const INIT_STATE = {
