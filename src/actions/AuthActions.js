@@ -19,32 +19,29 @@ import MainApi from "../api/MainApi";
 export const loginUser = (user, history) => async (dispatch) => {
     try {
         const {email, password} = user;
-        console.log('11111')
-        if(email === "sunnysultan1640@gmail.com" && password==="12345"){
-            localStorage.setItem('user_id', "ATestToken");
-            dispatch({type : LOGIN_USER_SUCCESS,payload: {uid: "ATestToken",email: 'sunnysultan1640@gmail.com', fullName: 'sultan'}});
-            history.push('/');
-        }else {
-            dispatch({type : LOGIN_USER_ERROR,payload: {message: "Invalid Login"}});
+
+        const response = await MainApi.post('/user/sign-in', user)
+        if(response.status === 200){
+            localStorage.setItem('token', response.data.token);
+            dispatch({type : LOGIN_USER_SUCCESS ,payload: response.data});
+            history.push('/')
         }
     } catch (error) {
+        error.response && dispatch({type : LOGIN_USER_ERROR ,payload: {message: error.response.data.errors[0].msg}});
         console.log(error);
     }
 }
 
 export const registerUser = (user, history) => async (dispatch) => {
-    let response;
     try {
-        const {email, password, phone_number, first_name, last_name} = user;
-
-        response = await MainApi.post('/user/sign-up', user)
+        const response = await MainApi.post('/user/sign-up', user)
         if(response.status === 201){
             localStorage.setItem('token', response.data.token);
             dispatch({type : REGISTER_USER_SUCCESS ,payload: response.data});
             history.push('/')
         }
     } catch (error) {
-        dispatch({type : REGISTER_USER_ERROR ,payload: {message: error.response.data.errors[0].msg}});
+        error.response && dispatch({type : REGISTER_USER_ERROR ,payload: {message: error.response.data.errors[0].msg}});
         console.log(error);
     }
 }

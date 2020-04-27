@@ -6,15 +6,15 @@ import { connect } from "react-redux";
 import { NotificationManager } from "../../components/common/react-notifications";
 import { Formik, Form, Field } from "formik";
 
-import { loginUser } from "../../actions";
+import { loginUser,resetError } from "../../actions";
 import { Colxx } from "../../components/common/CustomBootstrap";
 import IntlMessages from "../../helpers/IntlMessages";
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: "demo@gogo.com",
-      password: "gogo123"
+      email: "",
+      password: ""
     };
   }
 
@@ -56,6 +56,8 @@ class Login extends Component {
         null,
         ''
       );
+
+      this.props.resetError()
     }
   }
 
@@ -168,6 +170,6 @@ const mapStateToProps = (state) => {
 export default connect(
   mapStateToProps,
   {
-    loginUser
+    loginUser,resetError
   }
 )(Login);
