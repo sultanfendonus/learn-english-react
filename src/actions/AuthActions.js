@@ -49,6 +49,15 @@ export const registerUser = (user, history) => async (dispatch) => {
     }
 }
 
+export const logoutUser = (history) => async (dispatch) => {
+    try {
+        localStorage.removeItem('token')
+        window.location.href = '/'
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 export const resetError = () => ({
     type: RESET_ERROR,
     payload: null
@@ -102,8 +111,8 @@ export const registerUserError = (message) => ({
     type: REGISTER_USER_ERROR,
     payload: {message}
 })
-
-export const logoutUser = (history) => ({
-    type: LOGOUT_USER,
-    payload: {history}
-});
+//
+// export const logoutUser = (history) => ({
+//     type: LOGOUT_USER,
+//     payload: {history}
+// });

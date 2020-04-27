@@ -18,7 +18,7 @@ import {
   clickOnMobileMenu,
   logoutUser,
   changeLocale
-} from "../../redux/actions";
+} from "../../actions/index";
 
 import {
   menuHiddenBreakpoint,
