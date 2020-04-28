@@ -146,6 +146,8 @@ module.exports = {
   "menu.layouts": "Layouts",
   "menu.validations": "Validations",
   "menu.wizard": "Wizard",
+  "menu.pick-words": "Pick Words",
+  "menu.words": "Words",
 
   /* 04.Dashboards */
   "dashboards.pending-orders": "Pending Orders",
@@ -399,6 +401,8 @@ module.exports = {
   "button.right": "Right",
   "button.dropdown": "Dropdown",
   "button.dropdown-link": "Dropdown Link",
+  //
+  "button.add-words": "Add Some Words",
 
   /* 07.04.Cards */
   "cards.icon-card": "Icon Card",

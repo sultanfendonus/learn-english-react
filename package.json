@@ -48,7 +48,8 @@
     "video.js": "^7.6.0",
     "yup": "^0.27.0",
     "redux-devtools-extension": "^2.13.8",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "sass": "^1.26.5"
   },
   "scripts": {
     "start": "PORT=3006 react-scripts start",

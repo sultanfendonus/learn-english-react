@@ -3,7 +3,13 @@ const data = [{
     icon: "iconsminds-shop-4",
     label: "menu.dashboards",
     to: "/app/dashboards",
-    subs: [{
+    subs: [
+      {
+        icon: "simple-icon-magnifier-add",
+        label: "menu.pick-words",
+        to: "/app/dashboards/pick-words"
+      },
+        {
         icon: "simple-icon-briefcase",
         label: "menu.default",
         to: "/app/dashboards/default"

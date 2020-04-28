@@ -17,6 +17,9 @@ const EcommerceDefault = React.lazy(() =>
 const ExampleDefault = React.lazy(() =>
     import(/* webpackChunkName: "dashboard-ecommerce" */ './example')
 );
+const PickWords = React.lazy(() =>
+    import(/* webpackChunkName: "dashboard-ecommerce" */ './pick-words')
+);
 
 
 const Dashboards = ({ match }) => (
@@ -42,6 +45,10 @@ const Dashboards = ({ match }) => (
       <Route
           path={`${match.url}/example`}
           render={props => <ExampleDefault {...props} />}
+      />
+      <Route
+          path={`${match.url}/pick-words`}
+          render={props => <PickWords {...props} />}
       />
       <Redirect to="/error" />
     </Switch>

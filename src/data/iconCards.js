@@ -5,4 +5,3 @@ const data = [
     { title: 'dashboards.new-comments', icon: "iconsminds-mail-read", value: 25 }
   ]
   export default data
-  
