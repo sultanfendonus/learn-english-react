@@ -10,6 +10,7 @@ import WordListCards from "../../../components/words/pick-words/WordListCards";
 import RecentOrders from "../../../containers/dashboards/RecentOrders";
 import IconCardsCarousel from "../../../containers/dashboards/IconCardsCarousel";
 import SalesChartCard from "../../../containers/dashboards/SalesChartCard";
+import PickWordsButton from "../../../components/words/pick-words/PickWordsButton";
 function mapStateToProps(state) {
     return {};
 }
@@ -23,9 +24,7 @@ class PickWords extends Component {
                         <Breadcrumb heading="menu.pick-words" match={this.props.match} />
                     </div>
 
-                    <Button color="primary" size="lg" className="mb-2">
-                        <IntlMessages id="button.add-words" />
-                    </Button>
+                    <PickWordsButton />
                 </div>
                 <Separator className="mb-5" />
 
