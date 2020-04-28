@@ -37,6 +37,7 @@ class PickWords extends Component {
                         <RecentOrders />
                     </Colxx>
                 </Row>
+
             </Fragment>
         );
     }
