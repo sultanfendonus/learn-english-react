@@ -108,7 +108,6 @@ class App extends Component {
 }
 
 const mapStateToProps = (states) => {
-  console.log(states.AuthReducers.user)
   return {
     loginUser  : states.AuthReducers.user,
     locale  : states.SettingReducers.locale

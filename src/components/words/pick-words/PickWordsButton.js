@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {getASingleWord, updateASingleWord, pickAWord} from '../../../actions/index'
+import {getASingleWord, updateASingleWord, pickAWord, updateASingleWordImages} from '../../../actions/index'
 import IntlMessages from "../../../helpers/IntlMessages";
 import {Button} from "reactstrap";
 import { Modal, Button as AntButton } from 'antd';
@@ -35,6 +35,15 @@ class PickWordsButton extends Component {
                 word_id: this.props.singleWord._id
             })
         }
+
+        if(!this.props.singleWord.images|| this.props.singleWord.images===undefined
+            || this.props.singleWord.images==="" || this.props.singleWord.images.length === 0){
+            this.getImagesFromUnsplash(this.props.singleWord)
+        }else {
+            console.log("No need to save Image.")
+        }
+
+
     };
 
     handleSkip = e => {
@@ -42,7 +51,6 @@ class PickWordsButton extends Component {
     }
 
     handleCancel = e => {
-        console.log(e);
         this.setState({
             visible: false,
         });
@@ -62,18 +70,34 @@ class PickWordsButton extends Component {
                 })
 
                 this.props.pickAWord({
-                    english_word: this.props.word.full_word,
+                    english_word: word.full_word,
                     bangla_meaning: result.data[0][0][0],
-                    word_id: this.props.word._id
+                    word_id: word._id
                 })
             });
     };
 
+    async getImagesFromUnsplash(word){
+        try{
+            let text = word.full_word
+            const response = await axios.get(`https://api.unsplash.com/search/photos?page=1&query=${text}`,{
+                headers: {
+                    "Authorization": `Client-ID 9S9GamO838HHwsbUoZ4wTisKYKFSAZjNyzGgbF1EvwM`
+                }
+            })
+            response.data && this.props.updateASingleWordImages({
+                word_id: word._id,
+                images: response.data.results
+            })
+        }catch (e) {
+            console.log(e)
+        }
+
+    }
+
     renderWord(){
         return(
-            <div>
                 <h2 style={{textAlign: 'center'}}>{this.props.singleWord.full_word}</h2>
-            </div>
         )
     }
 
@@ -85,6 +109,7 @@ class PickWordsButton extends Component {
                 </Button>
                <Modal
                 title="Pick the word for learn about it."
+                centered
                 visible={this.state.visible}
                 onOk={this.handleOk}
                 onCancel={this.handleCancel}
@@ -97,7 +122,7 @@ class PickWordsButton extends Component {
                     </AntButton>,
                 ]}
                 >
-                <p>{this.props.singleWord && this.renderWord()}</p>
+                {this.props.singleWord && this.renderWord()}
             </Modal>
             </React.Fragment>
 
@@ -106,5 +131,5 @@ class PickWordsButton extends Component {
 }
 
 export default connect(
-    mapStateToProps, {getASingleWord, updateASingleWord, pickAWord}
+    mapStateToProps, {getASingleWord, updateASingleWord, pickAWord, updateASingleWordImages}
 )(PickWordsButton);

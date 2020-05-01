@@ -24,3 +24,15 @@ export const updateASingleWord = (data) => async (dispatch) => {
         console.log(error);
     }
 }
+
+export const updateASingleWordImages = (data) => async (dispatch) => {
+    try {
+        const response = await MainApi.put('/word/images', data)
+        if(response.status === 200){
+            console.log(">>>Successfully Image updated")
+        }
+    } catch (error) {
+        // error.response && dispatch({type : LOGIN_USER_ERROR ,payload: {message: error.response.data.errors[0].msg}});
+        console.log(error);
+    }
+}
