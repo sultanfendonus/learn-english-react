@@ -4,6 +4,7 @@ export * from "./AuthActions"
 export {changeLocale} from "./SettingActions"
 
 export * from "./MenuActions"
+export * from "./WordActions"
 
 export const getAllPost = () =>async (dispatch) =>{
     try {
