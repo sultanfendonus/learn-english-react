@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {getASingleWord, updateASingleWord} from '../../../actions/index'
+import {getASingleWord, updateASingleWord, pickAWord} from '../../../actions/index'
 import IntlMessages from "../../../helpers/IntlMessages";
 import {Button} from "reactstrap";
 import { Modal, Button as AntButton } from 'antd';
@@ -24,10 +24,16 @@ class PickWordsButton extends Component {
 
     handleOk = e => {
         this.props.getASingleWord()
+
         if(!this.props.singleWord.bangla_meaning|| this.props.singleWord.bangla_meaning===undefined || this.props.singleWord.bangla_meaning===""){
             this.getTranslationFromGoogle(this.props.singleWord)
         }else {
             console.log('no need to save the word')
+            this.props.pickAWord({
+                english_word: this.props.singleWord.full_word,
+                bangla_meaning: this.props.singleWord.bangla_meaning,
+                word_id: this.props.singleWord._id
+            })
         }
     };
 
@@ -54,8 +60,12 @@ class PickWordsButton extends Component {
                     bangla_meaning: result.data[0][0][0],
                     additional_meaning: result.data
                 })
-                console.log(result.data);
-                console.log(result.data[0][0][0])
+
+                this.props.pickAWord({
+                    english_word: this.props.word.full_word,
+                    bangla_meaning: result.data[0][0][0],
+                    word_id: this.props.word._id
+                })
             });
     };
 
@@ -96,5 +106,5 @@ class PickWordsButton extends Component {
 }
 
 export default connect(
-    mapStateToProps, {getASingleWord, updateASingleWord}
+    mapStateToProps, {getASingleWord, updateASingleWord, pickAWord}
 )(PickWordsButton);

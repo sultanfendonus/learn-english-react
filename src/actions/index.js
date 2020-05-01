@@ -5,6 +5,7 @@ export {changeLocale} from "./SettingActions"
 
 export * from "./MenuActions"
 export * from "./WordActions"
+export * from "./HistoryActions"
 
 export const getAllPost = () =>async (dispatch) =>{
     try {
