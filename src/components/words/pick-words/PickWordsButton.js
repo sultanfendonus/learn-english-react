@@ -36,10 +36,13 @@ class PickWordsButton extends Component {
             this.getTranslationFromGoogle(this.props.singleWord)
         }else {
             console.log('no need to save the word')
+            let image = this.props.singleWord.images && this.props.singleWord.images[0].urls.regular;
+
             this.props.pickAWord({
                 english_word: this.props.singleWord.full_word,
                 bangla_meaning: this.props.singleWord.bangla_meaning,
-                word_id: this.props.singleWord._id
+                word_id: this.props.singleWord._id,
+                image: image || 'no-image'
             })
 
         }
@@ -90,14 +93,23 @@ class PickWordsButton extends Component {
     async getImagesFromUnsplash(word){
         try{
             let text = word.full_word
-            const response = await axios.get(`https://api.unsplash.com/search/photos?page=1&query=${text}`,{
+            const response = await axios.get(`https://api.unsplash.com/search/photos?page=1&per_page=5&query=${text}`,{
                 headers: {
                     "Authorization": `Client-ID 9S9GamO838HHwsbUoZ4wTisKYKFSAZjNyzGgbF1EvwM`
                 }
             })
+            let result = [];
+            response.data && response.data.results.map((image)=>{
+                result.push({
+                    id: image.id,
+                    urls: image.urls,
+                    user_name: image.user.username,
+                    full_name: image.user.name
+                })
+            });
             response.data && this.props.updateASingleWordImages({
                 word_id: word._id,
-                images: response.data.results
+                images: result
             })
         }catch (e) {
             console.log(e)

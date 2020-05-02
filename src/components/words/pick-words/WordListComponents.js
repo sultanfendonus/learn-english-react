@@ -20,7 +20,7 @@ class WordListComponents extends Component {
                         <Colxx xxs="12">
                             <Card className="d-flex flex-row mb-3">
                                 <NavLink to="/app/ui/cards" className="d-flex">
-                                    <img alt="Thumbnail" src="/assets/img/chocolate-cake-thumb.jpg" className="list-thumbnail responsive border-0 card-img-left" />
+                                    <img alt="Thumbnail" src={word.image || "/assets/img/chocolate-cake-thumb.jpg"} className="list-thumbnail responsive border-0 card-img-left" />
                                 </NavLink>
                                 <div className="pl-2 d-flex flex-grow-1 min-width-zero">
                                     <div className="card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center">
