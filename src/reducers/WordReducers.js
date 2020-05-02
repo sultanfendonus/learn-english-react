@@ -1,16 +1,22 @@
 import {
-    SINGLE_WORD
+    SINGLE_WORD,
+    DETAILS_WORD
 } from '../actions/actions';
 
 const INIT_STATE = {
-    word: null
+    word: null,
+    detailsWord: null
 };
 
 export default (state = INIT_STATE, action) => {
     switch (action.type) {
         case SINGLE_WORD:
-            return { ...state, word:action.payload};
+            return {...state, word: action.payload};
 
-        default: return { ...state };
+        case DETAILS_WORD:
+            return {...state, detailsWord: action.payload};
+
+        default:
+            return {...state};
     }
 }

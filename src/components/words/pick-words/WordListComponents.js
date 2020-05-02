@@ -1,16 +1,27 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {setWordViewModalVisibility} from '../../../actions/index'
 import { Row, Card, CustomInput, CardTitle,FormGroup,Badge } from "reactstrap";
 import { NavLink } from "react-router-dom";
 
 import IntlMessages from "../../../helpers/IntlMessages";
 import { Colxx } from "../../../components/common/CustomBootstrap";
+import ShowWordModal from "./ShowWordModal";
 
 function mapStateToProps(state) {
     return {};
 }
 
 class WordListComponents extends Component {
+
+    state = {wordId: null}
+
+    viewWordDetails(wordId){
+        this.props.setWordViewModalVisibility(true)
+        this.setState({
+            wordId: wordId
+        })
+    }
 
     renderList(wordList){
         if(wordList.length > 0){
@@ -19,9 +30,9 @@ class WordListComponents extends Component {
                     <Row key={word._id}>
                         <Colxx xxs="12">
                             <Card className="d-flex flex-row mb-3">
-                                <NavLink to="/app/ui/cards" className="d-flex">
+                                <div style={{cursor: "pointer"}} onClick={()=>this.viewWordDetails(word.word_id)} className="d-flex">
                                     <img alt="Thumbnail" src={word.image || "/assets/img/chocolate-cake-thumb.jpg"} className="list-thumbnail responsive border-0 card-img-left" />
-                                </NavLink>
+                                </div>
                                 <div className="pl-2 d-flex flex-grow-1 min-width-zero">
                                     <div className="card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center">
                                         <NavLink to="/app/ui/cards" className="w-40 w-sm-100">
@@ -60,16 +71,20 @@ class WordListComponents extends Component {
     }
     render() {
         return (
-            <Row>
-                <Colxx xxs="12">
-                    <CardTitle className="mb-4"><IntlMessages id="cards.image-card-list" /></CardTitle>
-                    {this.props.wordList && this.renderList(this.props.wordList)}
-                </Colxx>
-            </Row>
+            <div>
+                <Row>
+                    <Colxx xxs="12">
+                        <CardTitle className="mb-4"><IntlMessages id="cards.image-card-list" /></CardTitle>
+                        {this.props.wordList && this.renderList(this.props.wordList)}
+                    </Colxx>
+                </Row>
+                <ShowWordModal wordId = {this.state.wordId}/>
+            </div>
+
         );
     }
 }
 
 export default connect(
-    mapStateToProps,
+    mapStateToProps, {setWordViewModalVisibility}
 )(WordListComponents);

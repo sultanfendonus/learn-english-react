@@ -102,9 +102,14 @@ class PickWordsButton extends Component {
             response.data && response.data.results.map((image)=>{
                 result.push({
                     id: image.id,
-                    urls: image.urls,
                     user_name: image.user.username,
-                    full_name: image.user.name
+                    full_name: image.user.name,
+                    description: image.description,
+                    created_at: image.created_at,
+                    urls: {
+                        regular: image.urls.regular,
+                        small: image.urls.small
+                    }
                 })
             });
             response.data && this.props.updateASingleWordImages({

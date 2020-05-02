@@ -1,7 +1,7 @@
 import getPost from '../api/MainApi'
 export * from "./AuthActions"
 
-export {changeLocale} from "./SettingActions"
+export * from "./SettingActions"
 
 export * from "./MenuActions"
 export * from "./WordActions"
