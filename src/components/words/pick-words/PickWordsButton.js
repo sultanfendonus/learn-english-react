@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {getASingleWord, updateASingleWord, pickAWord, updateASingleWordImages} from '../../../actions/index'
+import {getASingleWord, updateASingleWord, pickAWord, updateASingleWordImages,
+    getTodaysHistory} from '../../../actions/index'
 import IntlMessages from "../../../helpers/IntlMessages";
 import {Button} from "reactstrap";
 import { Modal, Button as AntButton } from 'antd';
@@ -22,6 +23,12 @@ class PickWordsButton extends Component {
         });
     };
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if(prevProps.singleWord !== this.props.singleWord){
+            this.props.getTodaysHistory()
+        }
+    }
+
     handleOk = e => {
         this.props.getASingleWord()
 
@@ -34,6 +41,7 @@ class PickWordsButton extends Component {
                 bangla_meaning: this.props.singleWord.bangla_meaning,
                 word_id: this.props.singleWord._id
             })
+
         }
 
         if(!this.props.singleWord.images|| this.props.singleWord.images===undefined
@@ -42,6 +50,8 @@ class PickWordsButton extends Component {
         }else {
             console.log("No need to save Image.")
         }
+
+
 
 
     };
@@ -131,5 +141,6 @@ class PickWordsButton extends Component {
 }
 
 export default connect(
-    mapStateToProps, {getASingleWord, updateASingleWord, pickAWord, updateASingleWordImages}
+    mapStateToProps, {getASingleWord, updateASingleWord, pickAWord, updateASingleWordImages,
+        getTodaysHistory}
 )(PickWordsButton);

@@ -26,7 +26,8 @@ export const MENU_CHANGE_HAS_SUB_ITEM_STATUS =
   "MENU_CHANGE_HAS_SUB_ITEM_STATUS";
 
 /*Word */
-export const SINGLE_WORD = "SINGLE_WORD"
+export const SINGLE_WORD = "SINGLE_WORD";
+export const SET_TODAYS_HISTORY = "SET_TODAYS_HISTORY";
 
 /* TODOAPP*/
 export const TODO_GET_LIST = "TODO_GET_LIST";
