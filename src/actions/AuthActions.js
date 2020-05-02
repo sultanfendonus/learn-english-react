@@ -24,7 +24,7 @@ export const loginUser = (user, history) => async (dispatch) => {
         if(response.status === 200){
             localStorage.setItem('token', response.data.token);
             dispatch({type : LOGIN_USER_SUCCESS ,payload: response.data});
-            history.push('/')
+            window.location.href = "/"
         }
     } catch (error) {
         error.response && dispatch({type : LOGIN_USER_ERROR ,payload: {message: error.response.data.errors[0].msg}});
@@ -38,7 +38,7 @@ export const registerUser = (user, history) => async (dispatch) => {
         if(response.status === 201){
             localStorage.setItem('token', response.data.token);
             dispatch({type : REGISTER_USER_SUCCESS ,payload: response.data});
-            history.push('/')
+            window.location.href = "/"
         }
     } catch (error) {
         error.response && dispatch({type : REGISTER_USER_ERROR ,payload: {message: error.response.data.errors[0].msg}});
