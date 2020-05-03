@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export default axios.create({
-    baseURL : 'http://192.168.31.96:8080',
+    baseURL : 'https://english-api.factandfun.com',
     headers: {
         "Authorization": `Token ${localStorage.getItem("token")}`
     }
