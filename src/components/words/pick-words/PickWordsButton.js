@@ -42,7 +42,7 @@ class PickWordsButton extends Component {
                 english_word: this.props.singleWord.full_word,
                 bangla_meaning: this.props.singleWord.bangla_meaning,
                 word_id: this.props.singleWord._id,
-                image: image || 'no-image'
+                image: image || null
             })
 
         }
