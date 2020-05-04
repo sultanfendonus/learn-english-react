@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {getASingleWord, updateASingleWord, pickAWord, updateASingleWordImages,
-    getTodaysHistory} from '../../../actions/index'
+import {
+    getASingleWord, updateASingleWord, pickAWord, updateASingleWordImages,
+    getTodaysHistory, pushHistoryToTodayList
+} from '../../../actions/index'
 import IntlMessages from "../../../helpers/IntlMessages";
 import {Button} from "reactstrap";
-import { Modal, Button as AntButton } from 'antd';
+import {Modal, Button as AntButton} from 'antd';
 import axios from 'axios'
 
 function mapStateToProps(state) {
@@ -14,7 +16,7 @@ function mapStateToProps(state) {
 }
 
 class PickWordsButton extends Component {
-    state = { visible: false };
+    state = {visible: false};
 
     showModal = () => {
         this.props.getASingleWord()
@@ -23,18 +25,16 @@ class PickWordsButton extends Component {
         });
     };
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if(prevProps.singleWord !== this.props.singleWord){
-            this.props.getTodaysHistory()
-        }
+    componentDidMount() {
+        this.props.getTodaysHistory()
     }
 
     handleOk = e => {
         this.props.getASingleWord()
 
-        if(!this.props.singleWord.bangla_meaning|| this.props.singleWord.bangla_meaning===undefined || this.props.singleWord.bangla_meaning===""){
+        if (!this.props.singleWord.bangla_meaning || this.props.singleWord.bangla_meaning === undefined || this.props.singleWord.bangla_meaning === "") {
             this.getTranslationFromGoogle(this.props.singleWord)
-        }else {
+        } else {
             console.log('no need to save the word')
             let image = this.props.singleWord.images && this.props.singleWord.images[0].urls.regular;
 
@@ -47,16 +47,12 @@ class PickWordsButton extends Component {
 
         }
 
-        if(!this.props.singleWord.images|| this.props.singleWord.images===undefined
-            || this.props.singleWord.images==="" || this.props.singleWord.images.length === 0){
+        if (!this.props.singleWord.images || this.props.singleWord.images === undefined
+            || this.props.singleWord.images === "" || this.props.singleWord.images.length === 0) {
             this.getImagesFromUnsplash(this.props.singleWord)
-        }else {
+        } else {
             console.log("No need to save Image.")
         }
-
-
-
-
     };
 
     handleSkip = e => {
@@ -91,42 +87,21 @@ class PickWordsButton extends Component {
     };
 
 
-
-    async getImagesFromUnsplash(word){
-        try{
-            let text = word.full_word
-            const response = await axios.get(`https://api.unsplash.com/search/photos?page=1&per_page=5&query=${text}`,{
-                headers: {
-                    "Authorization": `Client-ID 9S9GamO838HHwsbUoZ4wTisKYKFSAZjNyzGgbF1EvwM`
-                }
-            })
-            let result = [];
-            response.data && response.data.results.map((image)=>{
-                result.push({
-                    id: image.id,
-                    user_name: image.user.username,
-                    full_name: image.user.name,
-                    description: image.description,
-                    created_at: image.created_at,
-                    urls: {
-                        regular: image.urls.regular,
-                        small: image.urls.small
-                    }
-                })
-            });
-            response.data && this.props.updateASingleWordImages({
+    async getImagesFromUnsplash(word) {
+        //No need this try catch here. but I put it here only for I am too lazy.
+        try {
+            this.props.updateASingleWordImages({
+                full_word: word.full_word,
                 word_id: word._id,
-                images: result
             })
-        }catch (e) {
+        } catch (e) {
             console.log(e)
         }
-
     }
 
-    renderWord(){
-        return(
-                <h2 style={{textAlign: 'center'}}>{this.props.singleWord.full_word}</h2>
+    renderWord() {
+        return (
+            <h2 style={{textAlign: 'center'}}>{this.props.singleWord.full_word}</h2>
         )
     }
 
@@ -134,25 +109,25 @@ class PickWordsButton extends Component {
         return (
             <React.Fragment>
                 <Button onClick={this.showModal} color="primary" size="lg" className="mb-2">
-                    <IntlMessages id="button.add-words" />
+                    <IntlMessages id="button.add-words"/>
                 </Button>
-               <Modal
-                title="Pick the word for learn about it."
-                centered
-                visible={this.state.visible}
-                onOk={this.handleOk}
-                onCancel={this.handleCancel}
-                footer={[
-                    <AntButton key="back" onClick={this.handleSkip}>
-                        Skip
-                    </AntButton>,
-                    <AntButton key="submit" type="primary" onClick={this.handleOk}>
-                        Pick for learn
-                    </AntButton>,
-                ]}
+                <Modal
+                    title="Pick the word for learn about it."
+                    centered
+                    visible={this.state.visible}
+                    onOk={this.handleOk}
+                    onCancel={this.handleCancel}
+                    footer={[
+                        <AntButton key="back" onClick={this.handleSkip}>
+                            Skip
+                        </AntButton>,
+                        <AntButton key="submit" type="primary" onClick={this.handleOk}>
+                            Pick for learn
+                        </AntButton>,
+                    ]}
                 >
-                {this.props.singleWord && this.renderWord()}
-            </Modal>
+                    {this.props.singleWord && this.renderWord()}
+                </Modal>
             </React.Fragment>
 
         );
@@ -160,6 +135,8 @@ class PickWordsButton extends Component {
 }
 
 export default connect(
-    mapStateToProps, {getASingleWord, updateASingleWord, pickAWord, updateASingleWordImages,
-        getTodaysHistory}
+    mapStateToProps, {
+        getASingleWord, updateASingleWord, pickAWord, updateASingleWordImages,
+        getTodaysHistory, pushHistoryToTodayList
+    }
 )(PickWordsButton);
