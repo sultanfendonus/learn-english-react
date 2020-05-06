@@ -7,13 +7,13 @@ import AppLayout from '../../layout/AppLayout';
 const Dashboards = React.lazy(() =>
   import(/* webpackChunkName: "dashboards" */ './dashboards')
 );
-const Pages = React.lazy(() =>
-  import(/* webpackChunkName: "pages" */ './pages')
-);
-const Applications = React.lazy(() =>
-  import(/* webpackChunkName: "applications" */ './applications')
-);
-const Ui = React.lazy(() => import(/* webpackChunkName: "ui" */ './ui'));
+// const Pages = React.lazy(() =>
+//   import(/* webpackChunkName: "pages" */ './pages')
+// );
+// const Applications = React.lazy(() =>
+//   import(/* webpackChunkName: "applications" */ './applications')
+// );
+// const Ui = React.lazy(() => import(/* webpackChunkName: "ui" */ './ui'));
 const Menu = React.lazy(() => import(/* webpackChunkName: "menu" */ './menu'));
 const BlankPage = React.lazy(() =>
   import(/* webpackChunkName: "blank-page" */ './blank-page')
@@ -41,14 +41,14 @@ class App extends Component {
               {/*  path={`${match.url}/applications`}*/}
               {/*  render={props => <Applications {...props} />}*/}
               {/*/>*/}
-              <Route
-                path={`${match.url}/pages`}
-                render={props => <Pages {...props} />}
-              />
-              <Route
-                path={`${match.url}/ui`}
-                render={props => <Ui {...props} />}
-              />
+              {/*<Route*/}
+              {/*  path={`${match.url}/pages`}*/}
+              {/*  render={props => <Pages {...props} />}*/}
+              {/*/>*/}
+              {/*<Route*/}
+              {/*  path={`${match.url}/ui`}*/}
+              {/*  render={props => <Ui {...props} />}*/}
+              {/*/>*/}
               <Route
                 path={`${match.url}/menu`}
                 render={props => <Menu {...props} />}
