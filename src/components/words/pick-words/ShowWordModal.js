@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {setWordViewModalVisibility, getASingleWordDetails} from '../../../actions/index'
 import { Modal, Button } from 'antd';
+import DetailsDesign from "../details/DetailsDesign";
 
 function mapStateToProps(state) {
     return {
@@ -46,10 +47,11 @@ class ShowWordModal extends Component {
     renderDetails(){
         if(this.props.detailsWord){
             return(
-                <div>
-                    <p>{this.props.detailsWord._id}</p>
-                    {this.renderImages(this.props.detailsWord.images)}
-                </div>
+                // <div>
+                //     <p>{this.props.detailsWord._id}</p>
+                //     {this.renderImages(this.props.detailsWord.images)}
+                // </div>
+                <DetailsDesign detailsWord={this.props.detailsWord}/>
 
             )
         }
@@ -69,6 +71,7 @@ class ShowWordModal extends Component {
                     visible={this.props.wordModalVisibility}
                     onOk={this.handleOk}
                     onCancel={this.handleCancel}
+                    width={1100}
                 >
                     {this.renderDetails()}
                 </Modal>

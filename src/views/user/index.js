@@ -1,6 +1,7 @@
 import React, { Suspense } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import UserLayout from '../../layout/UserLayout';
+import DetailsDesign from "../../components/words/details/DetailsDesign";
 
 const Login = React.lazy(() =>
   import(/* webpackChunkName: "user-login" */ './login')
@@ -36,6 +37,10 @@ const User = ({ match }) => {
           <Route
             path={`${match.url}/reset-password`}
             render={props => <ResetPassword {...props} />}
+          />
+          <Route
+              path={`${match.url}/details`}
+              render={props => <DetailsDesign {...props} />}
           />
           <Redirect to="/error" />
         </Switch>
