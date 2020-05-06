@@ -3,17 +3,18 @@ import {connect} from 'react-redux';
 import { CardText, CardSubtitle, Row, Card, CardBody, CardTitle,CardImg,Badge } from "reactstrap";
 import './DetailsDesign.style.scss'
 import {Tag} from "antd";
+import {tagColors} from "../../../constants/defaultValues";
+
 function mapStateToProps(state) {
     return {};
 }
 
 class WordVariation extends Component {
     renderEnglishMeaning(words){
-        let tagColors = ["magenta","red","volcano","orange","gold","blue","green","cyan"]
         return words.map((word,index)=>{
-            var item = tagColors[Math.floor(Math.random() * tagColors.length)];
+            var color = tagColors[Math.floor(Math.random() * tagColors.length)];
             return(
-                <Tag key={index} color={item}>{word}</Tag>
+                <Tag key={index} color={color}>{word}</Tag>
             )
         })
     }
@@ -32,7 +33,6 @@ class WordVariation extends Component {
     }
     renderVariations(variations){
         return variations.map((variant,index)=>{
-            console.log(variant)
             return(
                 <React.Fragment key={index}>
                     <Card key={index} className="mb-3">

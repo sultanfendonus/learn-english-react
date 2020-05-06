@@ -41,7 +41,7 @@ class DetailsDesign extends Component {
         // console.log(this.props.detailsWord?.additional_meaning[1])
         return (
             <div className="container-details">
-                <Card style={{ padding: '15px'}}>
+                <Card style={{ padding: '15px', marginBottom: '10px'}}>
                     <div style={{display:"flex"}}>
                         <h3>{this.props.detailsWord.full_word}</h3>
                         <span className="dot"></span>
@@ -59,7 +59,7 @@ class DetailsDesign extends Component {
                 <WordVariation variations={this.props.detailsWord?.additional_meaning[1]}/>
 
 
-                <WordDefination />
+                <WordDefination definations={this.props.detailsWord.details}/>
 
                 <ImageList />
             </div>

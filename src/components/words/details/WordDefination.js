@@ -2,43 +2,70 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import { Tag } from 'antd';
 import { CardText, CardSubtitle, Row, Card, CardBody, CardTitle,CardImg,Badge } from "reactstrap";
-
+import {tagColors} from "../../../constants/defaultValues";
+import {Separator} from "../../common/CustomBootstrap";
 
 function mapStateToProps(state) {
     return {};
 }
 
 class WordDefination extends Component {
+
+    renderSimilarWord(words){
+        return words.map((word,index)=>{
+            let color = tagColors[Math.floor(Math.random() * tagColors.length)];
+            return(
+                <Tag key={index} color={color}>{word}</Tag>
+            )
+        })
+    }
+
+    renderExample(examples){
+        return examples.map((example,index)=>{
+            return(
+                <p><i>- {example}</i></p>
+            )
+        })
+    }
+
+
+    renderDefinationList(definations){
+        return definations.map((defination,index)=>{
+            console.log(defination)
+            let color = tagColors[Math.floor(Math.random() * tagColors.length)];
+            return(
+                <div key={index} style={{display: 'flex', padding: '10px', flexDirection: 'column', marginBottom: '5px', border: `${color} 1px solid`}}>
+                    <p>{index + 1}. ({defination.partOfSpeech}) {defination.definition}</p>
+
+                    <div style={defination.similarTo && {marginBottom: '2px'}}>
+                        <span style={defination.similarTo && {marginRight: '5px'}}>{defination.similarTo && `Similar word - `}</span>
+                        {defination.similarTo && this.renderSimilarWord(defination.similarTo)}
+                    </div>
+
+                    <div style={defination.synonyms &&{ marginBottom: '2px'}}>
+                        <span style={ defination.synonyms && {marginRight: '5px'}}>{defination.synonyms && `Synonyms - `}</span>
+                        {defination.synonyms && this.renderSimilarWord(defination.synonyms)}
+                    </div>
+
+                    <div style={defination.antonyms && {marginBottom: '2px'}}>
+                        <span style={defination.antonyms && {marginRight: '5px'}}>{defination.antonyms && `Antonyms - `}</span>
+                        {defination.antonyms && this.renderSimilarWord(defination.antonyms)}
+                    </div>
+                    <p>{defination.examples && `Examples:`}</p>
+                    {defination.examples && this.renderExample(defination.examples)}
+
+                </div>
+            )
+        })
+    }
     render() {
+        console.log(this.props.definations)
         return (
             <Card className="mb-2">
                 <div className="defination-container">
-                    <p>Defination:</p>
+                    <p><b>Definitions:</b></p>
                     <div>
-                        <div style={{display: 'flex', flexDirection: 'column'}}>
-                            <p>1. (Noun) a single distinct meaningful element of speech or writing, used with others (or sometimes alone) form a sentence and typically shown wit on either side when written or printed. “I don’t like the word ‘unofficial’”</p>
-                            <div>
-                                <span style={{marginRight: '5px'}}>Similar Word</span>
-                                <Tag color="magenta">magenta</Tag>
-                                <Tag color="red">red</Tag>
-                                <Tag color="volcano">volcano</Tag>
-                                <Tag color="orange">orange</Tag>
-                                <Tag color="gold">gold</Tag>
-                            </div>
-                        </div>
-
-                        <div style={{display: 'flex', flexDirection: 'column', marginTop: '5px'}}>
-                            <p>2. (Noun) a single distinct meaningful element of speech or writing, used with others (or sometimes alone) form a sentence and typically shown wit on either side when written or printed. “I don’t like the word ‘unofficial’”</p>
-                            <div>
-                                <span style={{marginRight: '5px'}}>Similar Word</span>
-                                <Tag color="magenta">magenta</Tag>
-                                <Tag color="red">red</Tag>
-                                <Tag color="volcano">volcano</Tag>
-                                <Tag color="orange">orange</Tag>
-                                <Tag color="gold">gold</Tag>
-                            </div>
-                        </div>
-
+                        {this.props.definations && this.renderDefinationList(this.props.definations.results)}
                     </div>
                 </div>
 

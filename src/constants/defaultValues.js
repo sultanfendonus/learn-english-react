@@ -4,6 +4,8 @@ Menu Types:
 */
 export const defaultMenuType = "menu-default";
 
+export const tagColors = ["magenta","red","orange","gold","blue","green","cyan"]
+
 export const subHiddenBreakpoint = 1440;
 export const menuHiddenBreakpoint = 768;
 export const defaultLocale = "en";
