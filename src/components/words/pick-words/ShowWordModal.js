@@ -67,11 +67,12 @@ class ShowWordModal extends Component {
         return (
             <div>
                 <Modal
-                    title="Basic Modal"
+                    title="Word Details"
                     visible={this.props.wordModalVisibility}
                     onOk={this.handleOk}
                     onCancel={this.handleCancel}
                     width={1100}
+                    zIndex={99999999}
                 >
                     {this.renderDetails()}
                 </Modal>

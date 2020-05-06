@@ -59,9 +59,9 @@ class DetailsDesign extends Component {
                 <WordVariation variations={this.props.detailsWord?.additional_meaning[1]}/>
 
 
-                <WordDefination definations={this.props.detailsWord.details}/>
+                <WordDefination definations={this.props.detailsWord?.details}/>
 
-                <ImageList />
+                <ImageList images={this.props.detailsWord?.images} />
             </div>
         );
     }

@@ -23,7 +23,7 @@ class WordDefination extends Component {
     renderExample(examples){
         return examples.map((example,index)=>{
             return(
-                <p><i>- {example}</i></p>
+                <p key={index}><i>- {example}</i></p>
             )
         })
     }
@@ -31,7 +31,6 @@ class WordDefination extends Component {
 
     renderDefinationList(definations){
         return definations.map((defination,index)=>{
-            console.log(defination)
             let color = tagColors[Math.floor(Math.random() * tagColors.length)];
             return(
                 <div key={index} style={{display: 'flex', padding: '10px', flexDirection: 'column', marginBottom: '5px', border: `${color} 1px solid`}}>
@@ -59,7 +58,6 @@ class WordDefination extends Component {
         })
     }
     render() {
-        console.log(this.props.definations)
         return (
             <Card className="mb-2">
                 <div className="defination-container">

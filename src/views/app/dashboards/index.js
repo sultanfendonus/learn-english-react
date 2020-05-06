@@ -25,7 +25,7 @@ const PickWords = React.lazy(() =>
 const Dashboards = ({ match }) => (
   <Suspense fallback={<div className="loading" />}>
     <Switch>
-      <Redirect exact from={`${match.url}/`} to={`${match.url}/default`} />
+      <Redirect exact from={`${match.url}/`} to={`${match.url}/pick-words`} />
       <Route
         path={`${match.url}/default`}
         render={props => <DashboardDefault {...props} />}

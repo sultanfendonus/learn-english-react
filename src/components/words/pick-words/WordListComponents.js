@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {setWordViewModalVisibility} from '../../../actions/index'
 import { Row, Card, CustomInput, CardTitle,FormGroup,Badge } from "reactstrap";
 import { NavLink } from "react-router-dom";
+import moment from "moment";
 
 import IntlMessages from "../../../helpers/IntlMessages";
 import { Colxx } from "../../../components/common/CustomBootstrap";
@@ -29,17 +30,17 @@ class WordListComponents extends Component {
                 return(
                     <Row key={word._id}>
                         <Colxx xxs="12">
-                            <Card className="d-flex flex-row mb-3">
-                                <div style={{cursor: "pointer"}} onClick={()=>this.viewWordDetails(word.word_id)} className="d-flex">
+                            <Card className="d-flex flex-row mb-3" style={{cursor: 'pointer'}} onClick={()=>this.viewWordDetails(word.word_id)} >
+                                <div style={{cursor: "pointer"}} className="d-flex">
                                     <img alt="Thumbnail" src={word.image || "/assets/img/chocolate-cake-thumb.jpg"} className="list-thumbnail responsive border-0 card-img-left" />
                                 </div>
                                 <div className="pl-2 d-flex flex-grow-1 min-width-zero">
                                     <div className="card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center">
-                                        <NavLink to="/app/ui/cards" className="w-40 w-sm-100">
+                                        <div to="/app/ui/cards" className="w-40 w-sm-100">
                                             <p className="list-item-heading mb-1 truncate">{word.english_word}</p>
-                                        </NavLink>
+                                        </div>
                                         <p className="mb-1 text-muted text-small w-15 w-sm-100">{word.bangla_meaning}</p>
-                                        <p className="mb-1 text-muted text-small w-15 w-sm-100">{word.createdAt}</p>
+                                        <p className="mb-1 text-muted text-small w-15 w-sm-100">{moment(word.createdAt).startOf('hour').fromNow()}</p>
                                         <div className="w-15 w-sm-100">
                                             <Badge color="primary" pill >PROCESSED</Badge>
                                         </div>
@@ -74,7 +75,7 @@ class WordListComponents extends Component {
             <div>
                 <Row>
                     <Colxx xxs="12">
-                        <CardTitle className="mb-4"><IntlMessages id="cards.image-card-list" /></CardTitle>
+                        {/*<CardTitle className="mb-4">Word List</CardTitle>*/}
                         {this.props.wordList && this.renderList(this.props.wordList)}
                     </Colxx>
                 </Row>
