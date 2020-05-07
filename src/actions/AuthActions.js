@@ -46,7 +46,7 @@ export const registerUser = (user, history) => async (dispatch) => {
     }
 }
 
-export const logoutUser = (history) => async (dispatch) => {
+export const logoutUser = () => async (dispatch) => {
     try {
         localStorage.removeItem('token')
         window.location.href = '/'
