@@ -30,6 +30,7 @@ class WordDefination extends Component {
 
 
     renderDefinationList(definations){
+        console.log(definations)
         return definations.map((defination,index)=>{
             let color = tagColors[Math.floor(Math.random() * tagColors.length)];
             return(
@@ -63,7 +64,7 @@ class WordDefination extends Component {
                 <div className="defination-container">
                     <p><b>Definitions:</b></p>
                     <div>
-                        {this.props.definations && this.renderDefinationList(this.props.definations.results)}
+                        {this.props?.definations?.results && this.renderDefinationList(this.props.definations.results)}
                     </div>
                 </div>
 

@@ -1,5 +1,5 @@
 import MainApi from "../api/MainApi";
-import {PUSH_TODAY_HISTORY, SET_TODAYS_HISTORY} from "./actions";
+import {PUSH_TODAY_HISTORY, SET_ALL_HISTORY, SET_TODAYS_HISTORY} from "./actions";
 
 export const pickAWord = (data) => async (dispatch) => {
     try {
@@ -19,6 +19,18 @@ export const getTodaysHistory = () => async (dispatch) => {
         const response = await MainApi.get('/history/today')
         if (response.status === 200) {
             dispatch({type: SET_TODAYS_HISTORY, payload: response.data.data});
+        }
+    } catch (error) {
+        // error.response && dispatch({type : LOGIN_USER_ERROR ,payload: {message: error.response.data.errors[0].msg}});
+        console.log(error);
+    }
+}
+
+export const getAllHistory = () => async (dispatch) => {
+    try {
+        const response = await MainApi.get('/history/all')
+        if (response.status === 200) {
+            dispatch({type: SET_ALL_HISTORY, payload: response.data.data});
         }
     } catch (error) {
         // error.response && dispatch({type : LOGIN_USER_ERROR ,payload: {message: error.response.data.errors[0].msg}});

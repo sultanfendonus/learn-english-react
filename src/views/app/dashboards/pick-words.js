@@ -11,6 +11,7 @@ import RecentOrders from "../../../containers/dashboards/RecentOrders";
 import IconCardsCarousel from "../../../containers/dashboards/IconCardsCarousel";
 import SalesChartCard from "../../../containers/dashboards/SalesChartCard";
 import PickWordsButton from "../../../components/words/pick-words/PickWordsButton";
+import HistoryCard from "../../../components/words/history/HistoryCard";
 function mapStateToProps(state) {
     return {};
 }
@@ -33,7 +34,7 @@ class PickWords extends Component {
                         <WordListCards />
                     </Colxx>
                     <Colxx lg="12" xl="4" className="mb-4">
-                        <RecentOrders />
+                        <HistoryCard />
                     </Colxx>
                 </Row>
 
