@@ -58,7 +58,7 @@ class HistoryList extends Component {
                                 </p>
                             </div>
                             <div className="text-primary text-small font-weight-medium d-none d-sm-block">
-                                {moment(history.createdAt).startOf('hour').fromNow()}
+                                {moment(history.updatedAt).startOf('hour').fromNow()}
                             </div>
                         </div>
                     </div>
