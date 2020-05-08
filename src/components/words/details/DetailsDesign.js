@@ -45,7 +45,7 @@ class DetailsDesign extends Component {
                     <div style={{display:"flex"}}>
                         <h3>{this.props.detailsWord.full_word}</h3>
                         <span className="dot"></span>
-                        {this.props.detailsWord.details && this.renderSyllables(this.props.detailsWord.details.syllables)}
+                        {this.props.detailsWord.details && this.props.detailsWord.details?.syllables && this.renderSyllables(this.props.detailsWord.details.syllables)}
                         <span className="dot"></span>
                         {this.props.detailsWord.details && this.renderPronunciation(this.props.detailsWord.details.pronunciation)}
 
