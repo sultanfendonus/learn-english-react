@@ -8,6 +8,7 @@ import moment from "moment";
 import IntlMessages from "../../../helpers/IntlMessages";
 import { Colxx } from "../../../components/common/CustomBootstrap";
 import ShowWordModal from "./ShowWordModal";
+import {renderLocalFromNow} from "../../../helpers/Time";
 
 function mapStateToProps(state) {
     return {};
@@ -40,7 +41,7 @@ class WordListComponents extends Component {
                                             <p className="list-item-heading mb-1 truncate">{word.english_word}</p>
                                         </div>
                                         <p className="mb-1 text-muted text-small w-15 w-sm-100">{word.bangla_meaning}</p>
-                                        <p className="mb-1 text-muted text-small w-15 w-sm-100">{moment(word.createdAt).startOf('hour').fromNow()}</p>
+                                        <p className="mb-1 text-muted text-small w-15 w-sm-100">{renderLocalFromNow(word.createdAt)}</p>
                                         <div className="w-15 w-sm-100">
                                             <Badge color="primary" pill >PROCESSED</Badge>
                                         </div>
