@@ -85,12 +85,12 @@ class HistoryList extends Component {
                         <CardTitle>
                             Recent History
                         </CardTitle>
-                        <div className="scroll dashboard-list-with-thumbs">
-                            <PerfectScrollbar
-                                options={{suppressScrollX: true, wheelPropagation: false}}
-                            >
+                        <div  >
+                            {/*<PerfectScrollbar*/}
+                            {/*    options={{suppressScrollX: true, wheelPropagation: false}}*/}
+                            {/*>*/}
                                 {this.renderList(this.props.histories)}
-                            </PerfectScrollbar>
+                            {/*</PerfectScrollbar>*/}
                         </div>
                     </CardBody>
                 </Card>
