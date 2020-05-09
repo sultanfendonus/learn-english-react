@@ -73,6 +73,7 @@ class ShowWordModal extends Component {
                     onCancel={this.handleCancel}
                     width={1100}
                     zIndex={99999999}
+                    destroyOnClose={true}
                 >
                     {this.renderDetails()}
                 </Modal>

@@ -9,6 +9,7 @@ import {NavLink} from "react-router-dom";
 import moment from "moment";
 import ShowWordModal from "../pick-words/ShowWordModal";
 import {renderLocalFromNow} from '../../../helpers/Time'
+import {wordPracticeIndicator} from "../../../helpers/Word";
 
 function mapStateToProps(state) {
     return {};
@@ -48,7 +49,7 @@ class HistoryList extends Component {
                             color={'primary'}
                             pill
                         >
-                            {history.hit}
+                            {wordPracticeIndicator(history.hit)}
                         </Badge>
                     </div>
 

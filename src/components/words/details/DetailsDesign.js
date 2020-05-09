@@ -42,12 +42,15 @@ class DetailsDesign extends Component {
         return (
             <div className="container-details">
                 <Card style={{ padding: '15px', marginBottom: '10px'}}>
-                    <div style={{display:"flex"}}>
+                    <div>
                         <h3>{this.props.detailsWord.full_word}</h3>
-                        <span className="dot"></span>
-                        {this.props.detailsWord.details && this.props.detailsWord.details?.syllables && this.renderSyllables(this.props.detailsWord.details.syllables)}
-                        <span className="dot"></span>
-                        {this.props.detailsWord.details && this.renderPronunciation(this.props.detailsWord.details.pronunciation)}
+                        <div style={{display:"flex"}}>
+                            <span className="dot"></span>
+                            {this.props.detailsWord.details && this.props.detailsWord.details?.syllables && this.renderSyllables(this.props.detailsWord.details.syllables)}
+                            <span className="dot"></span>
+                            {this.props.detailsWord.details && this.renderPronunciation(this.props.detailsWord.details.pronunciation)}
+
+                        </div>
 
                     </div>
                     <div>
