@@ -127,6 +127,7 @@ class Register extends Component {
                                     </Button>
                                 </div>
                             </Form>
+                            <p>Already have an account? <a style={{color: 'blue'}} href="/user/login">Log in</a></p>
                         </div>
                     </Card>
                 </Colxx>

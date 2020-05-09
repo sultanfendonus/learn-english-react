@@ -147,6 +147,8 @@ class Login extends Component {
                   </Form>
                 )}
               </Formik>
+              <p>Don't have an account? <a style={{color: 'blue'}} href="/user/register">Register Now!</a></p>
+
             </div>
           </Card>
         </Colxx>
