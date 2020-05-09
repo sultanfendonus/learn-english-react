@@ -1,6 +1,7 @@
 import {
     SINGLE_WORD,
-    DETAILS_WORD
+    DETAILS_WORD,
+    SET_SINGLE_WORD_EMPTY
 } from '../actions/actions';
 
 const INIT_STATE = {
@@ -11,6 +12,9 @@ const INIT_STATE = {
 export default (state = INIT_STATE, action) => {
     switch (action.type) {
         case SINGLE_WORD:
+            return {...state, word: action.payload};
+
+        case SET_SINGLE_WORD_EMPTY:
             return {...state, word: action.payload};
 
         case DETAILS_WORD:

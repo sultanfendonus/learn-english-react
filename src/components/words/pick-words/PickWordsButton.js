@@ -8,6 +8,8 @@ import IntlMessages from "../../../helpers/IntlMessages";
 import {Button} from "reactstrap";
 import {Modal, Button as AntButton} from 'antd';
 import axios from 'axios'
+import { Loader } from 'rsuite';
+import { Button as RButton, Modal as RModal, Paragraph } from 'rsuite';
 
 function mapStateToProps(state) {
     return {
@@ -105,6 +107,15 @@ class PickWordsButton extends Component {
         )
     }
 
+    renderLoader(){
+        return(
+            <div style={{textAlign: 'center'}}>
+                <Loader/>
+                <p>Loading...</p>
+            </div>
+        )
+    }
+
     render() {
         return (
             <React.Fragment>
@@ -117,17 +128,19 @@ class PickWordsButton extends Component {
                     visible={this.state.visible}
                     onOk={this.handleOk}
                     onCancel={this.handleCancel}
+                    width={400}
                     footer={[
-                        <AntButton key="back" onClick={this.handleSkip}>
+                        <RButton key="back" appearance="default" onClick={this.handleSkip}>
                             Skip
-                        </AntButton>,
-                        <AntButton key="submit" type="primary" onClick={this.handleOk}>
+                        </RButton>,
+                        <RButton key="submit" appearance="primary" onClick={this.handleOk}>
                             Pick for learn
-                        </AntButton>,
+                        </RButton>,
                     ]}
                 >
-                    {this.props.singleWord && this.renderWord()}
+                    {this.props.singleWord ? this.renderWord():  this.renderLoader()}
                 </Modal>
+
             </React.Fragment>
 
         );
