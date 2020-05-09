@@ -8,6 +8,7 @@ import data from "../../../data/products";
 import {NavLink} from "react-router-dom";
 import moment from "moment";
 import ShowWordModal from "../pick-words/ShowWordModal";
+import {renderLocalFromNow} from '../../../helpers/Time'
 
 function mapStateToProps(state) {
     return {};
@@ -22,6 +23,8 @@ class HistoryList extends Component {
             wordId: wordId
         })
     }
+
+
 
     renderList(histories) {
         if (!histories) {
@@ -58,7 +61,9 @@ class HistoryList extends Component {
                                 </p>
                             </div>
                             <div className="text-primary text-small font-weight-medium d-none d-sm-block">
-                                {moment(history.updatedAt).startOf('hour').fromNow()}
+                                {
+                                    renderLocalFromNow(history.updatedAt)
+                                }
                             </div>
                         </div>
                     </div>
