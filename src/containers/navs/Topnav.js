@@ -236,38 +236,40 @@ class TopNav extends Component {
             </span>
           </div>
 
-          <div className="d-inline-block">
-            <UncontrolledDropdown className="ml-2">
-              <DropdownToggle
-                caret
-                color="light"
-                size="sm"
-                className="language-button">
-                <span className="name">{locale.toUpperCase()}</span>
-              </DropdownToggle>
-              <DropdownMenu className="mt-3" right>
-                {localeOptions.map(l => {
-                  return (
-                    <DropdownItem
-                      onClick={() => this.handleChangeLocale(l.id, l.direction)}
-                      key={l.id}
-                    >
-                      {l.name}
-                    </DropdownItem>
-                  );
-                })}
-              </DropdownMenu>
-            </UncontrolledDropdown>
-          </div>
-          <div className="position-relative d-none d-none d-lg-inline-block">
-            <a
-              className="btn btn-outline-primary btn-sm ml-2"
-              target="_top"
-              href="https://themeforest.net/cart/configure_before_adding/22544383?license=regular&ref=ColoredStrategies&size=source"
-            >
-              <IntlMessages id="user.buy" />
-            </a>
-          </div>
+          {/*<div className="d-inline-block">*/}
+          {/*  <UncontrolledDropdown className="ml-2">*/}
+          {/*    <DropdownToggle*/}
+          {/*      caret*/}
+          {/*      color="light"*/}
+          {/*      size="sm"*/}
+          {/*      className="language-button">*/}
+          {/*      <span className="name">{locale.toUpperCase()}</span>*/}
+          {/*    </DropdownToggle>*/}
+          {/*    <DropdownMenu className="mt-3" right>*/}
+          {/*      {localeOptions.map(l => {*/}
+          {/*        return (*/}
+          {/*          <DropdownItem*/}
+          {/*            onClick={() => this.handleChangeLocale(l.id, l.direction)}*/}
+          {/*            key={l.id}*/}
+          {/*          >*/}
+          {/*            {l.name}*/}
+          {/*          </DropdownItem>*/}
+          {/*        );*/}
+          {/*      })}*/}
+          {/*    </DropdownMenu>*/}
+          {/*  </UncontrolledDropdown>*/}
+          {/*</div>*/}
+
+
+          {/*<div className="position-relative d-none d-none d-lg-inline-block">*/}
+          {/*  <a*/}
+          {/*    className="btn btn-outline-primary btn-sm ml-2"*/}
+          {/*    target="_top"*/}
+          {/*    href="https://themeforest.net/cart/configure_before_adding/22544383?license=regular&ref=ColoredStrategies&size=source"*/}
+          {/*  >*/}
+          {/*    <IntlMessages id="user.buy" />*/}
+          {/*  </a>*/}
+          {/*</div>*/}
         </div>
         <a className="navbar-logo" href="/">
           <span className="logo d-none d-xs-block" />
@@ -276,36 +278,36 @@ class TopNav extends Component {
 
         <div className="navbar-right">
           {isDarkSwitchActive && <TopnavDarkSwitch/>}
-          <div className="header-icons d-inline-block align-middle">
-            <TopnavEasyAccess />
-            <TopnavNotifications />
-            <button
-              className="header-icon btn btn-empty d-none d-sm-inline-block"
-              type="button"
-              id="fullScreenButton"
-              onClick={this.toggleFullScreen}
-            >
-              {this.state.isInFullScreen ? (
-                <i className="simple-icon-size-actual d-block" />
-              ) : (
-                <i className="simple-icon-size-fullscreen d-block" />
-              )}
-            </button>
-          </div>
+          {/*<div className="header-icons d-inline-block align-middle">*/}
+          {/*  <TopnavEasyAccess />*/}
+          {/*  <TopnavNotifications />*/}
+          {/*  <button*/}
+          {/*    className="header-icon btn btn-empty d-none d-sm-inline-block"*/}
+          {/*    type="button"*/}
+          {/*    id="fullScreenButton"*/}
+          {/*    onClick={this.toggleFullScreen}*/}
+          {/*  >*/}
+          {/*    {this.state.isInFullScreen ? (*/}
+          {/*      <i className="simple-icon-size-actual d-block" />*/}
+          {/*    ) : (*/}
+          {/*      <i className="simple-icon-size-fullscreen d-block" />*/}
+          {/*    )}*/}
+          {/*  </button>*/}
+          {/*</div>*/}
           <div className="user d-inline-block">
             <UncontrolledDropdown className="dropdown-menu-right">
               <DropdownToggle className="p-0" color="empty">
-                <span className="name mr-1">Sarah Kortney</span>
+                <span className="name mr-1">Hello User</span>
                 <span>
                   <img alt="Profile" src="/assets/img/profile-pic-l.jpg" />
                 </span>
               </DropdownToggle>
               <DropdownMenu className="mt-3" right>
-                <DropdownItem>Account</DropdownItem>
-                <DropdownItem>Features</DropdownItem>
-                <DropdownItem>History</DropdownItem>
-                <DropdownItem>Support</DropdownItem>
-                <DropdownItem divider />
+                {/*<DropdownItem>Account</DropdownItem>*/}
+                {/*<DropdownItem>Features</DropdownItem>*/}
+                {/*<DropdownItem>History</DropdownItem>*/}
+                {/*<DropdownItem>Support</DropdownItem>*/}
+                {/*<DropdownItem divider />*/}
                 <DropdownItem onClick={() => this.handleLogout()}>
                   Sign out
                 </DropdownItem>
