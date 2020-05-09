@@ -9,6 +9,7 @@ import IntlMessages from "../../../helpers/IntlMessages";
 import { Colxx } from "../../../components/common/CustomBootstrap";
 import ShowWordModal from "./ShowWordModal";
 import {renderLocalFromNow} from "../../../helpers/Time";
+import {wordPracticeIndicator} from "../../../helpers/Word"
 
 function mapStateToProps(state) {
     return {};
@@ -24,6 +25,8 @@ class WordListComponents extends Component {
             wordId: wordId
         })
     }
+
+
 
     renderList(wordList){
         if(wordList.length > 0){
@@ -43,18 +46,18 @@ class WordListComponents extends Component {
                                         <p className="mb-1 text-muted text-small w-15 w-sm-100">{word.bangla_meaning}</p>
                                         <p className="mb-1 text-muted text-small w-15 w-sm-100">{renderLocalFromNow(word.createdAt)}</p>
                                         <div className="w-15 w-sm-100">
-                                            <Badge color="primary" pill >PROCESSED</Badge>
+                                            <Badge color="primary" pill >{wordPracticeIndicator(word.hit)}</Badge>
                                         </div>
                                     </div>
-                                    <div className="custom-control custom-checkbox pl-1 align-self-center pr-4">
-                                        <FormGroup className="mb-0">
-                                            <CustomInput
-                                                type="checkbox"
-                                                id="check1"
-                                                label=""
-                                            />
-                                        </FormGroup>
-                                    </div>
+                                    {/*<div className="custom-control custom-checkbox pl-1 align-self-center pr-4">*/}
+                                    {/*    <FormGroup className="mb-0">*/}
+                                    {/*        <CustomInput*/}
+                                    {/*            type="checkbox"*/}
+                                    {/*            id="check1"*/}
+                                    {/*            label=""*/}
+                                    {/*        />*/}
+                                    {/*    </FormGroup>*/}
+                                    {/*</div>*/}
                                 </div>
                             </Card>
                         </Colxx>
