@@ -1,5 +1,10 @@
 import MainApi from "../api/MainApi";
-import {DETAILS_WORD, LOGIN_USER_ERROR, LOGIN_USER_SUCCESS, SINGLE_WORD, SET_SINGLE_WORD_EMPTY} from "./actions";
+import {
+    DETAILS_WORD,
+    LOGIN_USER_ERROR,
+    LOGIN_USER_SUCCESS, SINGLE_WORD, SET_SINGLE_WORD_EMPTY,
+    REORDER_TODAY_HISTORY
+} from "./actions";
 
 export const getASingleWord = () => async (dispatch) => {
     try {
@@ -14,6 +19,7 @@ export const getASingleWord = () => async (dispatch) => {
     }
 }
 export const getASingleWordDetails = (data) => async (dispatch) => {
+    dispatch({type: REORDER_TODAY_HISTORY, payload: data._id})
     try {
         const response = await MainApi.post('/word/find', data)
         if (response.status === 200) {

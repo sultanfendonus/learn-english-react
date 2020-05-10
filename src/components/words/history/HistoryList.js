@@ -39,7 +39,7 @@ class HistoryList extends Component {
                         className="d-block position-relative"
                     >
                         <img
-                            src={history.image || "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjEzMTQ0NX0"}
+                            src={history.image || "/assets/img/vocabulary-icon-png-4.png"}
                             alt={history.english_word}
                             className="list-thumbnail border-0"
                         />

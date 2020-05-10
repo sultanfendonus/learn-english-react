@@ -36,7 +36,7 @@ class WordListComponents extends Component {
                         <Colxx xxs="12">
                             <Card className="d-flex flex-row mb-3" style={index === 0 ? {height: '150px',cursor: 'pointer',border: 'solid'}: {cursor: 'pointer'}} onClick={()=>this.viewWordDetails(word.word_id)} >
                                 <div style={{cursor: "pointer"}} className="d-flex">
-                                    <img alt="Thumbnail" src={word.image || "/assets/img/chocolate-cake-thumb.jpg"} className="list-thumbnail responsive border-0 card-img-left" style={index === 0 ? {height: '145px'}:null} />
+                                    <img alt="Thumbnail" src={word.image || "/assets/img/vocabulary-icon-png-4.png"} className="list-thumbnail responsive border-0 card-img-left" style={index === 0 ? {height: '145px'}:null} />
                                 </div>
                                 <div className="pl-2 d-flex flex-grow-1 min-width-zero">
                                     <div className="card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center">
