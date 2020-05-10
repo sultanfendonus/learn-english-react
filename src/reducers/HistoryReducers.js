@@ -16,7 +16,12 @@ export default (state = INIT_STATE, action) => {
             return { ...state, todaysHistory:action.payload};
 
         case REORDER_TODAY_HISTORY:
-            let index = state.todaysHistory.findIndex(x => x.word_id === action.payload);
+
+            console.log(action.payload._id)
+            let index = state.todaysHistory.findIndex(x => x.word_id === action.payload._id);
+            if(index === -1){
+                return {...state, todaysHistory: state.todaysHistory};
+            }
             let updatedArray = [];
             let tempElement;
             state.todaysHistory.map((e,i)=>{

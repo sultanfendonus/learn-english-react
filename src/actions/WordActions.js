@@ -19,7 +19,7 @@ export const getASingleWord = () => async (dispatch) => {
     }
 }
 export const getASingleWordDetails = (data) => async (dispatch) => {
-    dispatch({type: REORDER_TODAY_HISTORY, payload: data._id})
+    dispatch({type: REORDER_TODAY_HISTORY, payload: data})
     try {
         const response = await MainApi.post('/word/find', data)
         if (response.status === 200) {
