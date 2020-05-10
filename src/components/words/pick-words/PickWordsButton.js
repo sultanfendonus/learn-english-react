@@ -103,7 +103,7 @@ class PickWordsButton extends Component {
 
     renderWord() {
         return (
-            <h2 style={{textAlign: 'center'}}>{this.props.singleWord.full_word}</h2>
+            <h2 style={{textAlign: 'center', fontSize: '2.5rem', fontWeight: 'bolder'}}>{this.props.singleWord.full_word}</h2>
         )
     }
 
