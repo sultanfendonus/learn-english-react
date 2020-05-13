@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { injectIntl } from "react-intl";
+import { Avatar } from 'antd';
+import { UserOutlined } from '@ant-design/icons';
 
 import {
   UncontrolledDropdown,
@@ -219,22 +221,22 @@ class TopNav extends Component {
             <MobileMenuIcon />
           </NavLink>
 
-          <div className="search" data-search-path="/app/pages/search">
-            <Input
-              name="searchKeyword"
-              id="searchKeyword"
-              placeholder={messages["menu.search"]}
-              value={this.state.searchKeyword}
-              onChange={e => this.handleSearchInputChange(e)}
-              onKeyPress={e => this.handleSearchInputKeyPress(e)}
-            />
-            <span
-              className="search-icon"
-              onClick={e => this.handleSearchIconClick(e)}
-            >
-              <i className="simple-icon-magnifier" />
-            </span>
-          </div>
+          {/*<div className="search" data-search-path="/app/pages/search">*/}
+          {/*  <Input*/}
+          {/*    name="searchKeyword"*/}
+          {/*    id="searchKeyword"*/}
+          {/*    placeholder={messages["menu.search"]}*/}
+          {/*    value={this.state.searchKeyword}*/}
+          {/*    onChange={e => this.handleSearchInputChange(e)}*/}
+          {/*    onKeyPress={e => this.handleSearchInputKeyPress(e)}*/}
+          {/*  />*/}
+          {/*  <span*/}
+          {/*    className="search-icon"*/}
+          {/*    onClick={e => this.handleSearchIconClick(e)}*/}
+          {/*  >*/}
+          {/*    <i className="simple-icon-magnifier" />*/}
+          {/*  </span>*/}
+          {/*</div>*/}
 
           {/*<div className="d-inline-block">*/}
           {/*  <UncontrolledDropdown className="ml-2">*/}
@@ -271,10 +273,10 @@ class TopNav extends Component {
           {/*  </a>*/}
           {/*</div>*/}
         </div>
-        <a className="navbar-logo" href="/">
-          <span className="logo d-none d-xs-block" />
-          <span className="logo-mobile d-block d-xs-none" />
-        </a>
+        {/*<a className="navbar-logo" href="/">*/}
+        {/*  <span className="logo d-none d-xs-block" />*/}
+        {/*  <span className="logo-mobile d-block d-xs-none" />*/}
+        {/*</a>*/}
 
         <div className="navbar-right">
           {isDarkSwitchActive && <TopnavDarkSwitch/>}
@@ -299,7 +301,9 @@ class TopNav extends Component {
               <DropdownToggle className="p-0" color="empty">
                 <span className="name mr-1">Hello User</span>
                 <span>
-                  <img alt="Profile" src="/assets/img/profile-pic-l.jpg" />
+                  {/*<img alt="Profile" src="/assets/img/profile-pic-l.jpg" />*/}
+                  <Avatar size="large" icon={<UserOutlined />} />
+
                 </span>
               </DropdownToggle>
               <DropdownMenu className="mt-3" right>

@@ -120,7 +120,7 @@ class PickWordsButton extends Component {
         return (
             <React.Fragment>
                 <Button onClick={this.showModal} color="primary" size="lg" className="mb-2">
-                    <IntlMessages id="button.add-words"/>
+                    Pick Some Words
                 </Button>
                 <Modal
                     title="Pick the word for learn about it."
