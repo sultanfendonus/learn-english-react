@@ -10,6 +10,8 @@ import { Colxx } from "../../../components/common/CustomBootstrap";
 import ShowWordModal from "./ShowWordModal";
 import {renderLocalFromNow} from "../../../helpers/Time";
 import {wordPracticeIndicator} from "../../../helpers/Word"
+import { Alert } from 'antd';
+import FlipMove from 'react-flip-move';
 
 function mapStateToProps(state) {
     return {};
@@ -34,9 +36,9 @@ class WordListComponents extends Component {
                 return(
                     <Row key={word._id}>
                         <Colxx xxs="12">
-                            <Card className="d-flex flex-row mb-3" style={index === 0 ? {height: '150px',cursor: 'pointer',border: 'solid'}: {cursor: 'pointer'}} onClick={()=>this.viewWordDetails(word.word_id)} >
+                            <Card className="d-flex flex-row mb-3" style={index === 0 && this.props.isHighlightFirstWord ? {height: '150px',cursor: 'pointer',border: 'solid'}: {cursor: 'pointer'}} onClick={()=>this.viewWordDetails(word.word_id)} >
                                 <div style={{cursor: "pointer"}} className="d-flex">
-                                    <img alt="Thumbnail" src={word.image || "/assets/img/vocabulary-icon-png-4.png"} className="list-thumbnail responsive border-0 card-img-left" style={index === 0 ? {height: '145px'}:null} />
+                                    <img alt="Thumbnail" src={word.image || "/assets/img/vocabulary-icon-png-4.png"} className="list-thumbnail responsive border-0 card-img-left" style={index === 0 && this.props.isHighlightFirstWord ? {height: '145px'}:null} />
                                 </div>
                                 <div className="pl-2 d-flex flex-grow-1 min-width-zero">
                                     <div className="card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center">
@@ -63,26 +65,31 @@ class WordListComponents extends Component {
                         </Colxx>
 
                     </Row>
+
+
                 )
             })
         }else {
             return (
-                <p>Please pick some word first.</p>
+                <Alert message="Please pick some words to enable this feature." type="error" />
+
             )
         }
-
-
 
     }
     render() {
         return (
             <div>
+
                 <Row>
                     <Colxx xxs="12">
                         {/*<CardTitle className="mb-4">Word List</CardTitle>*/}
+                        <FlipMove>
                         {this.props.wordList && this.renderList(this.props.wordList)}
+                        </FlipMove>
                     </Colxx>
                 </Row>
+
                 <ShowWordModal wordId = {this.state.wordId}/>
             </div>
 

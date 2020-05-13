@@ -19,7 +19,8 @@ class WordListCards extends Component {
     render() {
         return (
             <div>
-                <WordListComponents wordList={this.props.todaysHistory}/>
+                <h2>Today's lesson-</h2>
+                <WordListComponents isHighlightFirstWord={true} wordList={this.props.todaysHistory}/>
             </div>
         );
     }
