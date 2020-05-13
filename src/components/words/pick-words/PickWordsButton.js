@@ -10,6 +10,7 @@ import {Modal, Button as AntButton} from 'antd';
 import axios from 'axios'
 import { Loader } from 'rsuite';
 import { Button as RButton, Modal as RModal, Paragraph } from 'rsuite';
+import './PickWord.style.scss'
 
 function mapStateToProps(state) {
     return {

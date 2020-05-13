@@ -1,4 +1,5 @@
 import MainApi from "../api/MainApi";
+import { message } from 'antd';
 import {PUSH_TODAY_HISTORY, SET_ALL_HISTORY, SET_TODAYS_HISTORY} from "./actions";
 
 export const pickAWord = (data) => async (dispatch) => {
@@ -10,6 +11,11 @@ export const pickAWord = (data) => async (dispatch) => {
         }
     } catch (error) {
         // error.response && dispatch({type : LOGIN_USER_ERROR ,payload: {message: error.response.data.errors[0].msg}});
+        if(error.response){
+            if(error.response.status === 429){
+                message.error(error.response.data.errors[0].msg);
+            }
+        }
         console.log(error);
     }
 }
