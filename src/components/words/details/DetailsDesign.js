@@ -45,7 +45,7 @@ class DetailsDesign extends Component {
     renderTextToSpeech(word){
 
         return(
-            <PlayCircleFilled style={{fontSize: '25px', marginTop: '15px', marginLeft: '5px'}}
+            <PlayCircleFilled style={{fontSize: '25px', marginTop: '5px', marginLeft: '5px'}}
                               onClick={()=>speechSynthesis.speak(new SpeechSynthesisUtterance(word))}/>
         )
     }

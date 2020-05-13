@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {setWordViewModalVisibility, getASingleWordDetails} from '../../../actions/index'
+import {setWordViewModalVisibility, getASingleWordDetails,moveFirstElementToBottom} from '../../../actions/index'
 import { Modal, Button } from 'antd';
 import DetailsDesign from "../details/DetailsDesign";
+import {Button as RButton} from "rsuite";
 
 function mapStateToProps(state) {
     return {
@@ -29,11 +30,16 @@ class ShowWordModal extends Component {
 
     handleOk = e => {
         console.log(e);
-
     };
 
     handleCancel = e => {
         this.props.setWordViewModalVisibility(false)
+        setTimeout(()=>{
+            this.props.moveFirstElementToBottom({
+                _id: this.props.wordId
+            })
+        },500)
+
     };
 
     renderImages(images){
@@ -74,6 +80,11 @@ class ShowWordModal extends Component {
                     width={1100}
                     zIndex={99999999}
                     destroyOnClose={true}
+                    footer={[
+                        <Button key="back" appearance="default" onClick={this.handleCancel}>
+                            Close
+                        </Button>,
+                    ]}
                 >
                     {this.renderDetails()}
                 </Modal>
@@ -83,5 +94,5 @@ class ShowWordModal extends Component {
 }
 
 export default connect(
-    mapStateToProps, {setWordViewModalVisibility, getASingleWordDetails}
+    mapStateToProps, {setWordViewModalVisibility, getASingleWordDetails, moveFirstElementToBottom}
 )(ShowWordModal);
