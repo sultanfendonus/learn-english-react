@@ -10,6 +10,7 @@ import {Modal, Button as AntButton} from 'antd';
 import axios from 'axios'
 import { Loader } from 'rsuite';
 import { Button as RButton, Modal as RModal, Paragraph } from 'rsuite';
+import './PickWord.style.scss'
 
 function mapStateToProps(state) {
     return {
@@ -120,7 +121,7 @@ class PickWordsButton extends Component {
         return (
             <React.Fragment>
                 <Button onClick={this.showModal} color="primary" size="lg" className="mb-2">
-                    <IntlMessages id="button.add-words"/>
+                    Pick Some Words
                 </Button>
                 <Modal
                     title="Pick the word for learn about it."

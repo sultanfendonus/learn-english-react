@@ -1,5 +1,6 @@
 import MainApi from "../api/MainApi";
-import {PUSH_TODAY_HISTORY, SET_ALL_HISTORY, SET_TODAYS_HISTORY} from "./actions";
+import { message } from 'antd';
+import {PUSH_TODAY_HISTORY, SET_ALL_HISTORY, SET_TODAYS_HISTORY, SET_SHOULD_LEARN_HISTORY} from "./actions";
 
 export const pickAWord = (data) => async (dispatch) => {
     try {
@@ -10,6 +11,11 @@ export const pickAWord = (data) => async (dispatch) => {
         }
     } catch (error) {
         // error.response && dispatch({type : LOGIN_USER_ERROR ,payload: {message: error.response.data.errors[0].msg}});
+        if(error.response){
+            if(error.response.status === 429){
+                message.error(error.response.data.errors[0].msg);
+            }
+        }
         console.log(error);
     }
 }
@@ -31,6 +37,18 @@ export const getAllHistory = () => async (dispatch) => {
         const response = await MainApi.get('/history/all')
         if (response.status === 200) {
             dispatch({type: SET_ALL_HISTORY, payload: response.data.data});
+        }
+    } catch (error) {
+        // error.response && dispatch({type : LOGIN_USER_ERROR ,payload: {message: error.response.data.errors[0].msg}});
+        console.log(error);
+    }
+}
+
+export const getShouldLearnHistory = () => async (dispatch) => {
+    try {
+        const response = await MainApi.get('/history/should-learn')
+        if (response.status === 200) {
+            dispatch({type: SET_SHOULD_LEARN_HISTORY, payload: response.data.data});
         }
     } catch (error) {
         // error.response && dispatch({type : LOGIN_USER_ERROR ,payload: {message: error.response.data.errors[0].msg}});

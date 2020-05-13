@@ -2,18 +2,23 @@ import {
     SET_TODAYS_HISTORY,
     PUSH_TODAY_HISTORY,
     SET_ALL_HISTORY,
-    REORDER_TODAY_HISTORY
+    REORDER_TODAY_HISTORY,
+    SET_SHOULD_LEARN_HISTORY
 } from '../actions/actions';
 
 const INIT_STATE = {
     todaysHistory: [],
-    allHistory: []
+    allHistory: [],
+    shouldLearnHistory: []
 };
 
 export default (state = INIT_STATE, action) => {
     switch (action.type) {
         case SET_TODAYS_HISTORY:
             return { ...state, todaysHistory:action.payload};
+
+        case SET_SHOULD_LEARN_HISTORY:
+            return { ...state, shouldLearnHistory:action.payload};
 
         case REORDER_TODAY_HISTORY:
 
