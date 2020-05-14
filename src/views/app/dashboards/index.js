@@ -20,7 +20,9 @@ const ExampleDefault = React.lazy(() =>
 const PickWords = React.lazy(() =>
     import(/* webpackChunkName: "dashboard-ecommerce" */ './pick-words')
 );
-
+const ReviewWords = React.lazy(() =>
+    import('./review-words')
+);
 
 const Dashboards = ({ match }) => (
   <Suspense fallback={<div className="loading" />}>
@@ -49,6 +51,11 @@ const Dashboards = ({ match }) => (
       <Route
           path={`${match.url}/pick-words`}
           render={props => <PickWords {...props} />}
+      />
+
+      <Route
+          path={`${match.url}/review-words`}
+          render={props => <ReviewWords {...props} />}
       />
       <Redirect to="/error" />
     </Switch>
