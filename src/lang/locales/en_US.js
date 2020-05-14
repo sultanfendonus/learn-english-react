@@ -147,6 +147,7 @@ module.exports = {
   "menu.validations": "Validations",
   "menu.wizard": "Wizard",
   "menu.pick-words": "Pick Words",
+  "menu.review-words": "Review Words",
   "menu.words": "Words",
 
   /* 04.Dashboards */

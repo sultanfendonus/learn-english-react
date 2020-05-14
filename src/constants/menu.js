@@ -4,38 +4,43 @@ const data = [{
     label: "menu.dashboards",
     to: "/app/dashboards",
     subs: [
-      {
-        icon: "simple-icon-magnifier-add",
-        label: "menu.pick-words",
-        to: "/app/dashboards/pick-words"
-      },
-      //   {
-      //   icon: "simple-icon-briefcase",
-      //   label: "menu.default",
-      //   to: "/app/dashboards/default"
-      // },
-      // {
-      //   icon: "simple-icon-pie-chart",
-      //   label: "menu.analytics",
-      //   to: "/app/dashboards/analytics"
-      // },
-      // {
-      //   icon: "simple-icon-basket-loaded",
-      //   label: "menu.ecommerce",
-      //   to: "/app/dashboards/ecommerce"
-      // },
-      // {
-      //   icon: "simple-icon-doc",
-      //   label: "menu.content",
-      //   to: "/app/dashboards/content"
-      // },
-      // {
-      //   icon: "simple-icon-doc",
-      //   label: "menu.example",
-      //   to: "/app/dashboards/example"
-      // }
+        {
+            icon: "simple-icon-magnifier-add",
+            label: "menu.pick-words",
+            to: "/app/dashboards/pick-words"
+        },
+        {
+            icon: "simple-icon-magnifier-add",
+            label: "menu.review-words",
+            to: "/app/dashboards/review-words"
+        },
+        //   {
+        //   icon: "simple-icon-briefcase",
+        //   label: "menu.default",
+        //   to: "/app/dashboards/default"
+        // },
+        // {
+        //   icon: "simple-icon-pie-chart",
+        //   label: "menu.analytics",
+        //   to: "/app/dashboards/analytics"
+        // },
+        // {
+        //   icon: "simple-icon-basket-loaded",
+        //   label: "menu.ecommerce",
+        //   to: "/app/dashboards/ecommerce"
+        // },
+        // {
+        //   icon: "simple-icon-doc",
+        //   label: "menu.content",
+        //   to: "/app/dashboards/content"
+        // },
+        // {
+        //   icon: "simple-icon-doc",
+        //   label: "menu.example",
+        //   to: "/app/dashboards/example"
+        // }
     ]
-  },
+},
 //   {
 //     id: "pages",
 //     icon: "iconsminds-digital-drawing",

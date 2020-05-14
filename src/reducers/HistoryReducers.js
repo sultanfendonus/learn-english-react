@@ -3,13 +3,15 @@ import {
     PUSH_TODAY_HISTORY,
     SET_ALL_HISTORY,
     REORDER_TODAY_HISTORY,
-    SET_SHOULD_LEARN_HISTORY
+    SET_SHOULD_LEARN_HISTORY,
+    SET_REVIEW_WORDS
 } from '../actions/actions';
 
 const INIT_STATE = {
     todaysHistory: [],
     allHistory: [],
-    shouldLearnHistory: []
+    shouldLearnHistory: [],
+    reviewWords: []
 };
 
 export default (state = INIT_STATE, action) => {
@@ -19,6 +21,9 @@ export default (state = INIT_STATE, action) => {
 
         case SET_SHOULD_LEARN_HISTORY:
             return { ...state, shouldLearnHistory:action.payload};
+
+            case SET_REVIEW_WORDS:
+            return { ...state, reviewWords:action.payload};
 
         case REORDER_TODAY_HISTORY:
 
