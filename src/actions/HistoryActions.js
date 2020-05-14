@@ -1,7 +1,9 @@
 import MainApi from "../api/MainApi";
-import { message } from 'antd';
-import {PUSH_TODAY_HISTORY, SET_ALL_HISTORY, SET_TODAYS_HISTORY, SET_SHOULD_LEARN_HISTORY,
-    SET_REVIEW_WORDS} from "./actions";
+import {message} from 'antd';
+import {
+    PUSH_TODAY_HISTORY, SET_ALL_HISTORY, SET_TODAYS_HISTORY, SET_SHOULD_LEARN_HISTORY,
+    SET_REVIEW_WORDS, REMOVE_REVIEW_WORD
+} from "./actions";
 
 export const pickAWord = (data) => async (dispatch) => {
     try {
@@ -12,8 +14,8 @@ export const pickAWord = (data) => async (dispatch) => {
         }
     } catch (error) {
         // error.response && dispatch({type : LOGIN_USER_ERROR ,payload: {message: error.response.data.errors[0].msg}});
-        if(error.response){
-            if(error.response.status === 429){
+        if (error.response) {
+            if (error.response.status === 429) {
                 message.error(error.response.data.errors[0].msg);
             }
         }
@@ -73,4 +75,10 @@ export const getReviewWords = () => async (dispatch) => {
         // error.response && dispatch({type : LOGIN_USER_ERROR ,payload: {message: error.response.data.errors[0].msg}});
         console.log(error);
     }
+}
+
+export const removeAWordFromReview = (id) => async (dispatch) => {
+
+    dispatch({type: REMOVE_REVIEW_WORD, payload: id});
+
 }

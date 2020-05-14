@@ -4,7 +4,8 @@ import {
     SET_ALL_HISTORY,
     REORDER_TODAY_HISTORY,
     SET_SHOULD_LEARN_HISTORY,
-    SET_REVIEW_WORDS
+    SET_REVIEW_WORDS,
+    REMOVE_REVIEW_WORD
 } from '../actions/actions';
 
 const INIT_STATE = {
@@ -21,9 +22,6 @@ export default (state = INIT_STATE, action) => {
 
         case SET_SHOULD_LEARN_HISTORY:
             return { ...state, shouldLearnHistory:action.payload};
-
-            case SET_REVIEW_WORDS:
-            return { ...state, reviewWords:action.payload};
 
         case REORDER_TODAY_HISTORY:
 
@@ -50,6 +48,17 @@ export default (state = INIT_STATE, action) => {
 
         case PUSH_TODAY_HISTORY:
             return { ...state, todaysHistory: [...state.todaysHistory, action.payload]};
+
+
+        case SET_REVIEW_WORDS:
+            return { ...state, reviewWords:action.payload};
+
+
+        case REMOVE_REVIEW_WORD:
+            let newList = [];
+            newList = state.reviewWords.filter(item => item._id !== action.payload)
+            return { ...state, reviewWords: newList};
+
         default: return { ...state };
     }
 }
