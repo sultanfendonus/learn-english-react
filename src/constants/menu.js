@@ -1,7 +1,7 @@
 const data = [{
     id: "dashboards",
     icon: "iconsminds-shop-4",
-    label: "menu.dashboards",
+    label: "menu.words",
     to: "/app/dashboards",
     subs: [
         {
@@ -10,7 +10,7 @@ const data = [{
             to: "/app/dashboards/pick-words"
         },
         {
-            icon: "simple-icon-magnifier-add",
+            icon: "simple-icon-eyeglass",
             label: "menu.review-words",
             to: "/app/dashboards/review-words"
         },
