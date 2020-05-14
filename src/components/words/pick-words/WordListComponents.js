@@ -11,6 +11,7 @@ import ShowWordModal from "./ShowWordModal";
 import {renderLocalFromNow} from "../../../helpers/Time";
 import {wordPracticeIndicator} from "../../../helpers/Word"
 import { Alert } from 'antd';
+import FlipMove from 'react-flip-move';
 
 function mapStateToProps(state) {
     return {};
@@ -64,6 +65,8 @@ class WordListComponents extends Component {
                         </Colxx>
 
                     </Row>
+
+
                 )
             })
         }else {
@@ -77,12 +80,16 @@ class WordListComponents extends Component {
     render() {
         return (
             <div>
+
                 <Row>
                     <Colxx xxs="12">
                         {/*<CardTitle className="mb-4">Word List</CardTitle>*/}
+                        <FlipMove>
                         {this.props.wordList && this.renderList(this.props.wordList)}
+                        </FlipMove>
                     </Colxx>
                 </Row>
+
                 <ShowWordModal wordId = {this.state.wordId}/>
             </div>
 

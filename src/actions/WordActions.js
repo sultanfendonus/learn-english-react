@@ -19,7 +19,7 @@ export const getASingleWord = () => async (dispatch) => {
     }
 }
 export const getASingleWordDetails = (data) => async (dispatch) => {
-    dispatch({type: REORDER_TODAY_HISTORY, payload: data})
+    // dispatch({type: REORDER_TODAY_HISTORY, payload: data})
     try {
         const response = await MainApi.post('/word/find', data)
         if (response.status === 200) {
@@ -29,6 +29,10 @@ export const getASingleWordDetails = (data) => async (dispatch) => {
         // error.response && dispatch({type : LOGIN_USER_ERROR ,payload: {message: error.response.data.errors[0].msg}});
         console.log(error);
     }
+}
+
+export const moveFirstElementToBottom = (data) => async (dispatch) => {
+    dispatch({type: REORDER_TODAY_HISTORY, payload: data})
 }
 
 export const updateASingleWord = (data) => async (dispatch) => {
