@@ -1,6 +1,6 @@
 const data = [{
     id: "dashboards",
-    icon: "iconsminds-shop-4",
+    icon: "iconsminds-open-book",
     label: "menu.words",
     to: "/app/dashboards",
     subs: [
@@ -14,31 +14,18 @@ const data = [{
             label: "menu.review-words",
             to: "/app/dashboards/review-words"
         },
-        //   {
-        //   icon: "simple-icon-briefcase",
-        //   label: "menu.default",
-        //   to: "/app/dashboards/default"
-        // },
-        // {
-        //   icon: "simple-icon-pie-chart",
-        //   label: "menu.analytics",
-        //   to: "/app/dashboards/analytics"
-        // },
-        // {
-        //   icon: "simple-icon-basket-loaded",
-        //   label: "menu.ecommerce",
-        //   to: "/app/dashboards/ecommerce"
-        // },
-        // {
-        //   icon: "simple-icon-doc",
-        //   label: "menu.content",
-        //   to: "/app/dashboards/content"
-        // },
-        // {
-        //   icon: "simple-icon-doc",
-        //   label: "menu.example",
-        //   to: "/app/dashboards/example"
-        // }
+    ]
+},{
+    id: "feedback",
+    icon: "iconsminds-unlike",
+    label: "menu.feedback",
+    to: "/app/feedback",
+    subs: [
+        {
+            icon: "simple-icon-pencil",
+            label: "menu.new_feedback",
+            to: "/app/feedback/new"
+        }
     ]
 },
 //   {
