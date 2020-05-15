@@ -6,6 +6,7 @@ export * from "./SettingActions"
 export * from "./MenuActions"
 export * from "./WordActions"
 export * from "./HistoryActions"
+export * from "./FeedbackActions"
 
 export const getAllPost = () =>async (dispatch) =>{
     try {

@@ -102,6 +102,9 @@ html {
   height: 100%;
   background: $background-color;
 }
+.fixed-top{
+  z-index: 5 !important;
+}
 
 :root {
   --theme-color-1: #{$theme-color-1};

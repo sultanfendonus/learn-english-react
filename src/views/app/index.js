@@ -7,6 +7,11 @@ import AppLayout from '../../layout/AppLayout';
 const Dashboards = React.lazy(() =>
   import(/* webpackChunkName: "dashboards" */ './dashboards')
 );
+
+const Feedback = React.lazy(() =>
+    import('./feedback')
+);
+
 // const Pages = React.lazy(() =>
 //   import(/* webpackChunkName: "pages" */ './pages')
 // );
@@ -37,6 +42,12 @@ class App extends Component {
                 path={`${match.url}/dashboards`}
                 render={props => <Dashboards {...props} />}
               />
+
+              <Route
+                  path={`${match.url}/feedback`}
+                  render={props => <Feedback {...props} />}
+              />
+
               {/*<Route*/}
               {/*  path={`${match.url}/applications`}*/}
               {/*  render={props => <Applications {...props} />}*/}

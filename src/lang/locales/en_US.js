@@ -149,6 +149,8 @@ module.exports = {
   "menu.pick-words": "Pick Words",
   "menu.review-words": "Review Words",
   "menu.words": "Words",
+  "menu.feedback": "Feedback",
+  "menu.new_feedback": "New Feedback",
 
   /* 04.Dashboards */
   "dashboards.pending-orders": "Pending Orders",
