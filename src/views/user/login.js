@@ -70,15 +70,9 @@ class Login extends Component {
         <Colxx xxs="12" md="10" className="mx-auto my-auto">
           <Card className="auth-card">
             <div className="position-relative image-side ">
-              <p className="text-white h2">MAGIC IS IN THE DETAILS</p>
+              <p className="text-white h2">A better way to learn English</p>
               <p className="white mb-0">
                 Please use your credentials to login.
-                <br />
-                If you are not a member, please{" "}
-                <NavLink to={`/register`} className="white">
-                  register
-                </NavLink>
-                .
               </p>
             </div>
             <div className="form-side">
