@@ -12,6 +12,10 @@ const Feedback = React.lazy(() =>
     import('./feedback')
 );
 
+const Conversation = React.lazy(() =>
+    import('./live-conversation')
+);
+
 // const Pages = React.lazy(() =>
 //   import(/* webpackChunkName: "pages" */ './pages')
 // );
@@ -46,6 +50,11 @@ class App extends Component {
               <Route
                   path={`${match.url}/feedback`}
                   render={props => <Feedback {...props} />}
+              />
+
+              <Route
+                  path={`${match.url}/conversation`}
+                  render={props => <Conversation {...props} />}
               />
 
               {/*<Route*/}
