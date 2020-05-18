@@ -36,7 +36,7 @@ function LiveVideo(props) {
     const socket = useRef();
 
     useEffect(() => {
-        socket.current = io.connect("https://sdu8n.sse.codesandbox.io/");
+        socket.current = io.connect(process.env.REACT_APP_SOCKET_URL);
 
         navigator.mediaDevices
             .getUserMedia({ video: true, audio: true })
