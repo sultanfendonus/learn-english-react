@@ -151,6 +151,8 @@ module.exports = {
   "menu.words": "Words",
   "menu.feedback": "Feedback",
   "menu.new_feedback": "New Feedback",
+  "menu.conversation": "Conversation",
+  "menu.conversation-video": "Video Conversation",
 
   /* 04.Dashboards */
   "dashboards.pending-orders": "Pending Orders",

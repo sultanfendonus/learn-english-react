@@ -71,7 +71,7 @@ class WordListComponents extends Component {
             })
         }else {
             return (
-                <Alert message="Please pick some words to enable this feature." type="error" />
+                <Alert message={this.props.emptyMessage} type="error" />
 
             )
         }

@@ -18,6 +18,8 @@ import {
 
 const INIT_STATE = {
     user: localStorage.getItem('token'),
+    firstName: localStorage.getItem('firstName'),
+    lastName: localStorage.getItem('lastName'),
     forgotUserMail: '',
     newPassword: '',
     resetPasswordCode: '',
@@ -30,7 +32,11 @@ export default (state = INIT_STATE, action) => {
         case LOGIN_USER:
             return {...state, loading: true, error: ''};
         case LOGIN_USER_SUCCESS:
-            return {...state, loading: false, user: action.payload.token, error: ''};
+            return {
+                ...state, loading: false, user: action.payload.token,
+                firstName: action.payload.first_name,
+                lastName: action.payload.last_name, error: ''
+            };
         case LOGIN_USER_ERROR:
             return {...state, loading: false, user: '', error: action.payload.message};
         case FORGOT_PASSWORD:
@@ -48,7 +54,12 @@ export default (state = INIT_STATE, action) => {
         case REGISTER_USER:
             return {...state, loading: true, error: ''};
         case REGISTER_USER_SUCCESS:
-            return {...state, loading: false, user: action.payload.token, error: ''};
+            return {
+                ...state, loading: false, user: action.payload.token,
+                firstName: action.payload.first_name,
+                lastName: action.payload.last_name,
+                error: ''
+            };
         case REGISTER_USER_ERROR:
             return {...state, loading: false, user: '', error: action.payload.message};
         case LOGOUT_USER:

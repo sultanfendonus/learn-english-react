@@ -16,6 +16,19 @@ const data = [{
         },
     ]
 },{
+    id: "conversation",
+    icon: "simple-icon-phone",
+    label: "menu.conversation",
+    to: "/app/conversation",
+    subs: [
+        {
+            icon: "iconsminds-video-tripod",
+            label: "menu.conversation-video",
+            to: "/app/conversation/live"
+        }
+    ]
+},
+    {
     id: "feedback",
     icon: "iconsminds-unlike",
     label: "menu.feedback",
@@ -28,6 +41,7 @@ const data = [{
         }
     ]
 },
+
 //   {
 //     id: "pages",
 //     icon: "iconsminds-digital-drawing",
