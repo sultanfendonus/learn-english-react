@@ -23,6 +23,8 @@ export const loginUser = (user, history) => async (dispatch) => {
         const response = await MainApi.post('/user/sign-in', user)
         if(response.status === 200){
             localStorage.setItem('token', response.data.token);
+            localStorage.setItem('firstName', response.data.first_name);
+            localStorage.setItem('lastName', response.data.last_name);
             dispatch({type : LOGIN_USER_SUCCESS ,payload: response.data});
             window.location.href = "/"
         }
@@ -37,6 +39,8 @@ export const registerUser = (user, history) => async (dispatch) => {
         const response = await MainApi.post('/user/sign-up', user)
         if(response.status === 201){
             localStorage.setItem('token', response.data.token);
+            localStorage.setItem('firstName', response.data.first_name);
+            localStorage.setItem('lastName', response.data.last_name);
             dispatch({type : REGISTER_USER_SUCCESS ,payload: response.data});
             window.location.href = "/"
         }
@@ -49,6 +53,8 @@ export const registerUser = (user, history) => async (dispatch) => {
 export const logoutUser = () => async (dispatch) => {
     try {
         localStorage.removeItem('token')
+        localStorage.removeItem('firstName')
+        localStorage.removeItem('lastName')
         window.location.href = '/'
     } catch (error) {
         console.log(error);
