@@ -1,35 +1,21 @@
 import React, { useEffect, useState, useRef } from "react";
+import {connect} from 'react-redux';
 import "./LiveVideo.style.css";
 import io from "socket.io-client";
 import Peer from "simple-peer";
-import styled from "styled-components";
-
-const Container = styled.div`
-  height: 100vh;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-`;
-
-const Row = styled.div`
-  display: flex;
-  width: 100%;
-`;
-
-// const Video = styled.video`
-//   border: 1px solid blue;
-//   // width: 50%;
-//   // height: 50%;
-// `;
+import { Modal, Button } from 'antd';
 
 function LiveVideo(props) {
     const [yourID, setYourID] = useState("");
     const [users, setUsers] = useState({});
     const [stream, setStream] = useState();
     const [receivingCall, setReceivingCall] = useState(false);
+    const [startCalling, setStartCalling] = useState(false);
     const [caller, setCaller] = useState("");
     const [callerSignal, setCallerSignal] = useState();
+    const [callerName, setCallerName] = useState();
     const [callAccepted, setCallAccepted] = useState(false);
+    const [callRejected, setCallRejected] = useState(false);
 
     const userVideo = useRef();
     const partnerVideo = useRef();
@@ -57,13 +43,16 @@ function LiveVideo(props) {
         });
 
         socket.current.on("hey", data => {
+            console.log(data)
             setReceivingCall(true);
             setCaller(data.from);
+            setCallerName(data.name)
             setCallerSignal(data.signal);
         });
     }, []);
 
     function callPeer(id) {
+        setStartCalling(true)
         const peer = new Peer({
             initiator: true,
             trickle: false,
@@ -74,7 +63,8 @@ function LiveVideo(props) {
             socket.current.emit("callUser", {
                 userToCall: id,
                 signalData: data,
-                from: yourID
+                from: yourID,
+                name: props.firstName
             });
         });
 
@@ -92,6 +82,7 @@ function LiveVideo(props) {
 
     function acceptCall() {
         setCallAccepted(true);
+        setStartCalling(true)
         const peer = new Peer({
             initiator: false,
             trickle: false,
@@ -126,6 +117,11 @@ function LiveVideo(props) {
         peer.signal(callerSignal);
     }
 
+    function rejectCall(){
+        setCallRejected(true)
+    }
+
+
     let UserVideo;
     if (stream) {
         UserVideo = <video style={{width:150}} playsInline muted ref={userVideo} autoPlay />;
@@ -133,18 +129,9 @@ function LiveVideo(props) {
 
     let PartnerVideo;
     if (callAccepted) {
-        PartnerVideo = <video style={{width: 220}} playsInline ref={partnerVideo} autoPlay />;
+        PartnerVideo = <video style={{width: '100%'}} playsInline ref={partnerVideo} autoPlay controls={true}/>;
     }
 
-    let incomingCall;
-    if (receivingCall && callAccepted === false) {
-        incomingCall = (
-            <div>
-                <h1>{caller} is calling you</h1>
-                <button onClick={acceptCall}>Accept</button>
-            </div>
-        );
-    }
 
     const renderUserList = (users)=>{
         return(
@@ -158,21 +145,66 @@ function LiveVideo(props) {
             </div>
         )
     }
+
+    const renderUserVideo = ()=>{
+        if(callAccepted){
+            console.log("current2233",userVideo)
+                return(
+                    <video style={{width: 150}} playsinline muted ref={userVideo} autoPlay/>
+                    )
+
+        }
+    }
+
     return (
-        <Container>
+        <div>
             <div className="video-container">
-                {PartnerVideo}
-                {UserVideo}
+                {/*{PartnerVideo}*/}
+                {stream && <video style={{width: 150}} playsinline muted ref={userVideo} autoPlay/>}
             </div>
-
-
-            {/*<p>{`${props.name} = ${yourID}`}</p>*/}
-
             {renderUserList(users)}
 
-            <Row>{incomingCall}</Row>
-        </Container>
+
+            <Modal
+                title="Incoming Video Call"
+                visible={receivingCall && callAccepted === false && callRejected === false}
+                onOk={acceptCall}
+                onCancel={rejectCall}
+                okText="Accept"
+                onCancelText="Reject"
+            >
+                <div>
+                    <h5 style={{fontWeight: 'bolder'}}>{callerName} want to practice english with you...</h5>
+                </div>
+            </Modal>
+
+            <Modal
+                title="Video Communication"
+                visible={startCalling && callRejected === false}
+                footer={[]}
+                width={720}
+            >
+                <div>
+                    <div className="video-container">
+                        {callAccepted===false && <p>Calling..</p>}
+                        {PartnerVideo}
+
+                        {/*<video style={{width: 150}} playsinline muted ref={userVideo} autoPlay/>*/}
+                        {userVideo && renderUserVideo()}
+                    </div>
+                </div>
+            </Modal>
+        </div>
     );
 }
 
-export default LiveVideo;
+const mapStateToProps = (state)=> {
+    console.log(state)
+    return {
+        firstName: state.AuthReducers.firstName
+    };
+}
+
+export default connect(
+    mapStateToProps,
+)(LiveVideo);
