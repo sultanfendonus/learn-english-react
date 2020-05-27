@@ -1,9 +1,13 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, {useEffect, useState, useRef} from "react";
 import {connect} from 'react-redux';
 import "./LiveVideo.style.css";
 import io from "socket.io-client";
 import Peer from "simple-peer";
-import { Modal, Button } from 'antd';
+import {Modal, Button} from 'antd';
+import adapter from 'webrtc-adapter';
+import {Card} from 'antd';
+import {VideoCameraOutlined} from '@ant-design/icons';
+
 
 function LiveVideo(props) {
     const [yourID, setYourID] = useState("");
@@ -25,7 +29,7 @@ function LiveVideo(props) {
         socket.current = io.connect(process.env.REACT_APP_SOCKET_URL);
 
         navigator.mediaDevices
-            .getUserMedia({ video: true, audio: true })
+            .getUserMedia({video: true, audio: true})
             .then(stream => {
                 setStream(stream);
                 if (userVideo.current) {
@@ -35,7 +39,7 @@ function LiveVideo(props) {
 
         socket.current.on("yourID", id => {
             setYourID(id);
-            socket.current.emit("setName",{id: id, name: props.name})
+            socket.current.emit("setName", {id: id, name: props.name})
         });
         socket.current.on("allUsers", users => {
             console.log(users);
@@ -117,14 +121,14 @@ function LiveVideo(props) {
         peer.signal(callerSignal);
     }
 
-    function rejectCall(){
+    function rejectCall() {
         setCallRejected(true)
     }
 
 
     let UserVideo;
     if (stream) {
-        UserVideo = <video style={{width:150}} playsInline muted ref={userVideo} autoPlay />;
+        UserVideo = <video style={{width: 150}} playsInline muted ref={userVideo} autoPlay/>;
     }
 
     let PartnerVideo;
@@ -133,36 +137,48 @@ function LiveVideo(props) {
     }
 
 
-    const renderUserList = (users)=>{
-        return(
+    const renderUserList = (users) => {
+        return (
             <div>
                 {Object.values(users).map(key => {
                     if (key.id === yourID) {
                         return null;
                     }
-                    return <button style={{marginLeft: "10px"}} onClick={() => callPeer(key.id)}>Call {key.name}</button>;
+                    return (
+                        <Button
+                            key={key.id}
+                            onClick={() => callPeer(key.id)}
+                            style={{marginRight: 5}}
+                            type="primary"
+                            shape="round"
+                            icon={<VideoCameraOutlined/>}>
+                            {key.name}
+                        </Button>
+                    )
                 })}
             </div>
         )
     }
 
-    const renderUserVideo = ()=>{
-        if(callAccepted){
-            console.log("current2233",userVideo)
-                return(
-                    <video style={{width: 150}} playsinline muted ref={userVideo} autoPlay/>
-                    )
+    const renderUserVideo = () => {
+        if (callAccepted) {
+            console.log("current2233", userVideo)
+            return (
+                <video style={{width: 150}} playsinline muted ref={userVideo} autoPlay/>
+            )
 
         }
     }
 
     return (
         <div>
-            <div className="video-container">
-                {/*{PartnerVideo}*/}
+            <Card className='fixed-user-video' style={{width: 180}}>
                 {stream && <video style={{width: 150}} playsinline muted ref={userVideo} autoPlay/>}
-            </div>
-            {renderUserList(users)}
+            </Card>
+
+            <Card title="List of users who want to practise english." style={{width: '100%'}}>
+                {renderUserList(users)}
+            </Card>
 
 
             <Modal
@@ -186,11 +202,11 @@ function LiveVideo(props) {
             >
                 <div>
                     <div className="video-container">
-                        {callAccepted===false && <p>Calling..</p>}
+                        {callAccepted === false && <p>Calling..</p>}
                         {PartnerVideo}
 
                         {/*<video style={{width: 150}} playsinline muted ref={userVideo} autoPlay/>*/}
-                        {userVideo && renderUserVideo()}
+                        {/*{userVideo && renderUserVideo()}*/}
                     </div>
                 </div>
             </Modal>
@@ -198,7 +214,7 @@ function LiveVideo(props) {
     );
 }
 
-const mapStateToProps = (state)=> {
+const mapStateToProps = (state) => {
     console.log(state)
     return {
         firstName: state.AuthReducers.firstName
