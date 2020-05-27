@@ -7,7 +7,7 @@ import {Modal, Button} from 'antd';
 import adapter from 'webrtc-adapter';
 import {Card} from 'antd';
 import {VideoCameraOutlined} from '@ant-design/icons';
-
+import { Popconfirm, message } from 'antd';
 
 function LiveVideo(props) {
     const [yourID, setYourID] = useState("");
@@ -137,6 +137,10 @@ function LiveVideo(props) {
     }
 
 
+    const confirmCall = (id)=> {
+        callPeer(id)
+    }
+
     const renderUserList = (users) => {
         return (
             <div>
@@ -145,15 +149,17 @@ function LiveVideo(props) {
                         return null;
                     }
                     return (
-                        <Button
-                            key={key.id}
-                            onClick={() => callPeer(key.id)}
-                            style={{marginRight: 5}}
-                            type="primary"
-                            shape="round"
-                            icon={<VideoCameraOutlined/>}>
-                            {key.name}
-                        </Button>
+                        <Popconfirm placement="topLeft" title={`Are you sure want to make a video call with ${key.name}?`} onConfirm={()=>confirmCall(key.id)} okText="Yes" cancelText="No">
+                            <Button
+                                key={key.id}
+                                style={{marginRight: 5}}
+                                type="primary"
+                                shape="round"
+                                icon={<VideoCameraOutlined/>}>
+                                {key.name}
+                            </Button>
+                        </Popconfirm>
+
                     )
                 })}
             </div>
