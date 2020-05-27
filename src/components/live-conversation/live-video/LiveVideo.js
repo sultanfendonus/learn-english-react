@@ -9,6 +9,8 @@ import {Card} from 'antd';
 import {VideoCameraOutlined} from '@ant-design/icons';
 import { Popconfirm, message } from 'antd';
 
+let peer;
+
 function LiveVideo(props) {
     const [yourID, setYourID] = useState("");
     const [users, setUsers] = useState({});
@@ -57,7 +59,7 @@ function LiveVideo(props) {
 
     function callPeer(id) {
         setStartCalling(true)
-        const peer = new Peer({
+        peer = new Peer({
             initiator: true,
             trickle: false,
             stream: stream
@@ -87,7 +89,7 @@ function LiveVideo(props) {
     function acceptCall() {
         setCallAccepted(true);
         setStartCalling(true)
-        const peer = new Peer({
+        peer = new Peer({
             initiator: false,
             trickle: false,
             config: {
@@ -125,6 +127,11 @@ function LiveVideo(props) {
         setCallRejected(true)
     }
 
+    function endCall(){
+        peer.destroy()
+        setStartCalling(false)
+        window.location.reload()
+    }
 
     let UserVideo;
     if (stream) {
@@ -176,6 +183,8 @@ function LiveVideo(props) {
         }
     }
 
+
+
     return (
         <div>
             <Card className='fixed-user-video' style={{width: 180}}>
@@ -203,7 +212,12 @@ function LiveVideo(props) {
             <Modal
                 title="Video Communication"
                 visible={startCalling && callRejected === false}
-                footer={[]}
+                onCancel={endCall}
+                footer={[
+                    <Button key="back" type="primary" danger onClick={endCall}>
+                        End Call
+                    </Button>,
+                ]}
                 width={720}
             >
                 <div>
@@ -221,7 +235,6 @@ function LiveVideo(props) {
 }
 
 const mapStateToProps = (state) => {
-    console.log(state)
     return {
         firstName: state.AuthReducers.firstName
     };
