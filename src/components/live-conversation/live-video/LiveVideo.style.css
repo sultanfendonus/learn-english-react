@@ -40,6 +40,12 @@
 .video-container{
     display: flex;
 }
+
+.fixed-user-video{
+    position: fixed;
+    bottom: 0px;
+    right: 0px;
+}
 @media only screen and (max-width: 600px) {
     .video-container{
         flex-direction: column;

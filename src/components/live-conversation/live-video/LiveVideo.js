@@ -1,35 +1,27 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, {useEffect, useState, useRef} from "react";
+import {connect} from 'react-redux';
 import "./LiveVideo.style.css";
 import io from "socket.io-client";
 import Peer from "simple-peer";
-import styled from "styled-components";
+import {Modal, Button} from 'antd';
+import adapter from 'webrtc-adapter';
+import {Card} from 'antd';
+import {VideoCameraOutlined} from '@ant-design/icons';
+import { Popconfirm, message } from 'antd';
 
-const Container = styled.div`
-  height: 100vh;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-`;
-
-const Row = styled.div`
-  display: flex;
-  width: 100%;
-`;
-
-// const Video = styled.video`
-//   border: 1px solid blue;
-//   // width: 50%;
-//   // height: 50%;
-// `;
+let peer;
 
 function LiveVideo(props) {
     const [yourID, setYourID] = useState("");
     const [users, setUsers] = useState({});
     const [stream, setStream] = useState();
     const [receivingCall, setReceivingCall] = useState(false);
+    const [startCalling, setStartCalling] = useState(false);
     const [caller, setCaller] = useState("");
     const [callerSignal, setCallerSignal] = useState();
+    const [callerName, setCallerName] = useState();
     const [callAccepted, setCallAccepted] = useState(false);
+    const [callRejected, setCallRejected] = useState(false);
 
     const userVideo = useRef();
     const partnerVideo = useRef();
@@ -39,7 +31,7 @@ function LiveVideo(props) {
         socket.current = io.connect(process.env.REACT_APP_SOCKET_URL);
 
         navigator.mediaDevices
-            .getUserMedia({ video: true, audio: true })
+            .getUserMedia({video: true, audio: true})
             .then(stream => {
                 setStream(stream);
                 if (userVideo.current) {
@@ -49,7 +41,7 @@ function LiveVideo(props) {
 
         socket.current.on("yourID", id => {
             setYourID(id);
-            socket.current.emit("setName",{id: id, name: props.name})
+            socket.current.emit("setName", {id: id, name: props.name})
         });
         socket.current.on("allUsers", users => {
             console.log(users);
@@ -57,14 +49,17 @@ function LiveVideo(props) {
         });
 
         socket.current.on("hey", data => {
+            console.log(data)
             setReceivingCall(true);
             setCaller(data.from);
+            setCallerName(data.name)
             setCallerSignal(data.signal);
         });
     }, []);
 
     function callPeer(id) {
-        const peer = new Peer({
+        setStartCalling(true)
+        peer = new Peer({
             initiator: true,
             trickle: false,
             stream: stream
@@ -74,7 +69,8 @@ function LiveVideo(props) {
             socket.current.emit("callUser", {
                 userToCall: id,
                 signalData: data,
-                from: yourID
+                from: yourID,
+                name: props.firstName
             });
         });
 
@@ -92,20 +88,21 @@ function LiveVideo(props) {
 
     function acceptCall() {
         setCallAccepted(true);
-        const peer = new Peer({
+        setStartCalling(true)
+        peer = new Peer({
             initiator: false,
             trickle: false,
             config: {
                 iceServers: [
                     {
-                        urls: "stun:numb.viagenie.ca",
-                        username: "sunnysultan1640@gmail.com",
-                        credential: "16407916"
+                        urls: "stun:coturn.en-bn.com:3478",
+                        username: "sultan",
+                        credential: "123456"
                     },
                     {
-                        urls: "turn:numb.viagenie.ca",
-                        username: "sunnysultan1640@gmail.com",
-                        credential: "16407916"
+                        urls: "turn:coturn.en-bn.com:3478",
+                        username: "sultan",
+                        credential: "123456"
                     }
                 ]
             },
@@ -126,53 +123,123 @@ function LiveVideo(props) {
         peer.signal(callerSignal);
     }
 
+    function rejectCall() {
+        setCallRejected(true)
+    }
+
+    function endCall(){
+        peer.destroy()
+        setStartCalling(false)
+        window.location.reload()
+    }
+
     let UserVideo;
     if (stream) {
-        UserVideo = <video style={{width:150}} playsInline muted ref={userVideo} autoPlay />;
+        UserVideo = <video style={{width: 150}} playsInline muted ref={userVideo} autoPlay/>;
     }
 
     let PartnerVideo;
     if (callAccepted) {
-        PartnerVideo = <video style={{width: 220}} playsInline ref={partnerVideo} autoPlay />;
+        PartnerVideo = <video style={{width: '100%'}} playsInline ref={partnerVideo} autoPlay controls={true}/>;
     }
 
-    let incomingCall;
-    if (receivingCall && callAccepted === false) {
-        incomingCall = (
-            <div>
-                <h1>{caller} is calling you</h1>
-                <button onClick={acceptCall}>Accept</button>
-            </div>
-        );
+
+    const confirmCall = (id)=> {
+        callPeer(id)
     }
 
-    const renderUserList = (users)=>{
-        return(
+    const renderUserList = (users) => {
+        return (
             <div>
                 {Object.values(users).map(key => {
                     if (key.id === yourID) {
                         return null;
                     }
-                    return <button style={{marginLeft: "10px"}} onClick={() => callPeer(key.id)}>Call {key.name}</button>;
+                    return (
+                        <Popconfirm placement="topLeft" title={`Are you sure want to make a video call with ${key.name}?`} onConfirm={()=>confirmCall(key.id)} okText="Yes" cancelText="No">
+                            <Button
+                                key={key.id}
+                                style={{marginRight: 5}}
+                                type="primary"
+                                shape="round"
+                                icon={<VideoCameraOutlined/>}>
+                                {key.name}
+                            </Button>
+                        </Popconfirm>
+
+                    )
                 })}
             </div>
         )
     }
+
+    const renderUserVideo = () => {
+        if (callAccepted) {
+            console.log("current2233", userVideo)
+            return (
+                <video style={{width: 150}} playsinline muted ref={userVideo} autoPlay/>
+            )
+
+        }
+    }
+
+
+
     return (
-        <Container>
-            <div className="video-container">
-                {PartnerVideo}
-                {UserVideo}
-            </div>
+        <div>
+            <Card className='fixed-user-video' style={{width: 180}}>
+                {stream && <video style={{width: 150}} playsinline muted ref={userVideo} autoPlay/>}
+            </Card>
+
+            <Card title="List of users who want to practise english." style={{width: '100%'}}>
+                {renderUserList(users)}
+            </Card>
 
 
-            {/*<p>{`${props.name} = ${yourID}`}</p>*/}
+            <Modal
+                title="Incoming Video Call"
+                visible={receivingCall && callAccepted === false && callRejected === false}
+                onOk={acceptCall}
+                onCancel={rejectCall}
+                okText="Accept"
+                onCancelText="Reject"
+            >
+                <div>
+                    <h5 style={{fontWeight: 'bolder'}}>{callerName} want to practice english with you...</h5>
+                </div>
+            </Modal>
 
-            {renderUserList(users)}
+            <Modal
+                title="Video Communication"
+                visible={startCalling && callRejected === false}
+                onCancel={endCall}
+                footer={[
+                    <Button key="back" type="primary" danger onClick={endCall}>
+                        End Call
+                    </Button>,
+                ]}
+                width={720}
+            >
+                <div>
+                    <div className="video-container">
+                        {callAccepted === false && <p>Calling..</p>}
+                        {PartnerVideo}
 
-            <Row>{incomingCall}</Row>
-        </Container>
+                        {/*<video style={{width: 150}} playsinline muted ref={userVideo} autoPlay/>*/}
+                        {/*{userVideo && renderUserVideo()}*/}
+                    </div>
+                </div>
+            </Modal>
+        </div>
     );
 }
 
-export default LiveVideo;
+const mapStateToProps = (state) => {
+    return {
+        firstName: state.AuthReducers.firstName
+    };
+}
+
+export default connect(
+    mapStateToProps,
+)(LiveVideo);
