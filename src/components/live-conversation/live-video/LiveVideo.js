@@ -7,7 +7,7 @@ import {Modal, Button} from 'antd';
 import adapter from 'webrtc-adapter';
 import {Card} from 'antd';
 import {VideoCameraOutlined} from '@ant-design/icons';
-import { Popconfirm, message } from 'antd';
+import {Popconfirm, message} from 'antd';
 
 let peer;
 
@@ -28,12 +28,14 @@ function LiveVideo(props) {
     const socket = useRef();
 
     useEffect(() => {
+        let streamRef;
         socket.current = io.connect(process.env.REACT_APP_SOCKET_URL);
 
         navigator.mediaDevices
             .getUserMedia({video: true, audio: true})
             .then(stream => {
                 setStream(stream);
+                streamRef = stream
                 if (userVideo.current) {
                     userVideo.current.srcObject = stream;
                 }
@@ -55,6 +57,14 @@ function LiveVideo(props) {
             setCallerName(data.name)
             setCallerSignal(data.signal);
         });
+
+        return () => {
+            //This code will turn off the camera and microphone if user leave this page.
+            streamRef.getTracks().forEach(function (track) {
+                track.stop();
+            });
+
+        }
     }, []);
 
     function callPeer(id) {
@@ -127,9 +137,12 @@ function LiveVideo(props) {
         setCallRejected(true)
     }
 
-    function endCall(){
+    function endCall() {
         peer.destroy()
         setStartCalling(false)
+        // stream.getTracks().forEach(function(track) {
+        //     track.stop();
+        // });
         window.location.reload()
     }
 
@@ -144,7 +157,7 @@ function LiveVideo(props) {
     }
 
 
-    const confirmCall = (id)=> {
+    const confirmCall = (id) => {
         callPeer(id)
     }
 
@@ -156,7 +169,9 @@ function LiveVideo(props) {
                         return null;
                     }
                     return (
-                        <Popconfirm placement="topLeft" title={`Are you sure want to make a video call with ${key.name}?`} onConfirm={()=>confirmCall(key.id)} okText="Yes" cancelText="No">
+                        <Popconfirm placement="topLeft"
+                                    title={`Are you sure want to make a video call with ${key.name}?`}
+                                    onConfirm={() => confirmCall(key.id)} okText="Yes" cancelText="No">
                             <Button
                                 key={key.id}
                                 style={{marginRight: 5}}
@@ -182,7 +197,6 @@ function LiveVideo(props) {
 
         }
     }
-
 
 
     return (
