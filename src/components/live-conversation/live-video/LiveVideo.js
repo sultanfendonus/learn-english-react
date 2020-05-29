@@ -9,6 +9,8 @@ import {Card} from 'antd';
 import {VideoCameraOutlined} from '@ant-design/icons';
 import {Popconfirm, message} from 'antd';
 import ringtone from '../../../assets/ringtone.mp3'
+import {Button as MButton} from '@material-ui/core';
+
 
 let audio;
 
@@ -203,14 +205,18 @@ function LiveVideo(props) {
                         <Popconfirm placement="topLeft"
                                     title={`Are you sure want to make a video call with ${key.name}?`}
                                     onConfirm={() => confirmCall(key.id)} okText="Yes" cancelText="No">
-                            <Button
+
+
+
+                            <MButton
+                                variant="contained"
+                                color="secondary"
                                 key={key.id}
                                 style={{marginRight: 5}}
-                                type="primary"
-                                shape="round"
-                                icon={<VideoCameraOutlined/>}>
+                                startIcon={<VideoCameraOutlined/>}
+                            >
                                 {key.name}
-                            </Button>
+                            </MButton>
                         </Popconfirm>
 
                     )
