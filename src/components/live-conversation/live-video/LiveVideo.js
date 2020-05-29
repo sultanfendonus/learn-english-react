@@ -25,6 +25,7 @@ function LiveVideo(props) {
     const [callerName, setCallerName] = useState();
     const [callAccepted, setCallAccepted] = useState(false);
     const [callRejected, setCallRejected] = useState(false);
+    const [callRejectDialog, setCallRejectDialog] = useState(false)
 
     const userVideo = useRef();
     const partnerVideo = useRef();
@@ -59,17 +60,23 @@ function LiveVideo(props) {
         let heyValue = 0;
         socket.current.on("hey", data => {
 
-            if(heyValue === 0){
+            if (heyValue === 0) {
                 audio.play()
                 audio.loop = true
             }
-            heyValue =  heyValue + 1;
+            heyValue = heyValue + 1;
 
             setReceivingCall(true);
             setCaller(data.from);
             setCallerName(data.name)
             setCallerSignal(data.signal);
         });
+
+        socket.current.on("rejectCall", (data) => {
+            setCallRejected(true)
+            setCallRejectDialog(true)
+
+        })
 
         return () => {
             //This code will turn off the camera and microphone if user leave this page.
@@ -154,6 +161,10 @@ function LiveVideo(props) {
         audio.pause();
         audio.currentTime = 0;
         setCallRejected(true)
+        socket.current.emit("rejectCall", {
+            from: yourID,
+            to: caller
+        })
         window.location.reload()
     }
 
@@ -263,6 +274,17 @@ function LiveVideo(props) {
                         {/*{userVideo && renderUserVideo()}*/}
                     </div>
                 </div>
+            </Modal>
+
+            {/*call Rejected...*/}
+            <Modal
+                title="Call Rejected!"
+                visible={callRejectDialog}
+                onOk={() => window.location.reload()}
+                onCancel={() => window.location.reload()}
+            >
+                <p>Your call has been Rejected. Please call other for continue practice.</p>
+
             </Modal>
         </div>
     );
