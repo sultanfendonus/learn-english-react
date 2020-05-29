@@ -7,7 +7,12 @@ import {Modal, Button} from 'antd';
 import adapter from 'webrtc-adapter';
 import {Card} from 'antd';
 import {VideoCameraOutlined} from '@ant-design/icons';
-import { Popconfirm, message } from 'antd';
+import {Popconfirm, message} from 'antd';
+import ringtone from '../../../assets/ringtone.mp3'
+import {Button as MButton} from '@material-ui/core';
+
+
+let audio;
 
 let peer;
 
@@ -22,18 +27,23 @@ function LiveVideo(props) {
     const [callerName, setCallerName] = useState();
     const [callAccepted, setCallAccepted] = useState(false);
     const [callRejected, setCallRejected] = useState(false);
+    const [callRejectDialog, setCallRejectDialog] = useState(false)
 
     const userVideo = useRef();
     const partnerVideo = useRef();
     const socket = useRef();
 
     useEffect(() => {
+        let streamRef;
+        audio = new Audio(ringtone)
+
         socket.current = io.connect(process.env.REACT_APP_SOCKET_URL);
 
         navigator.mediaDevices
             .getUserMedia({video: true, audio: true})
             .then(stream => {
                 setStream(stream);
+                streamRef = stream
                 if (userVideo.current) {
                     userVideo.current.srcObject = stream;
                 }
@@ -48,13 +58,35 @@ function LiveVideo(props) {
             setUsers(users);
         });
 
+        //I Don't know why hey called twice. thats why I put a breaker here for stop ring tone.
+        let heyValue = 0;
         socket.current.on("hey", data => {
-            console.log(data)
+
+            if (heyValue === 0) {
+                audio.play()
+                audio.loop = true
+            }
+            heyValue = heyValue + 1;
+
             setReceivingCall(true);
             setCaller(data.from);
             setCallerName(data.name)
             setCallerSignal(data.signal);
         });
+
+        socket.current.on("rejectCall", (data) => {
+            setCallRejected(true)
+            setCallRejectDialog(true)
+
+        })
+
+        return () => {
+            //This code will turn off the camera and microphone if user leave this page.
+            streamRef.getTracks().forEach(function (track) {
+                track.stop();
+            });
+
+        }
     }, []);
 
     function callPeer(id) {
@@ -87,6 +119,10 @@ function LiveVideo(props) {
     }
 
     function acceptCall() {
+
+        audio.pause();
+        audio.currentTime = 0;
+
         setCallAccepted(true);
         setStartCalling(true)
         peer = new Peer({
@@ -124,12 +160,22 @@ function LiveVideo(props) {
     }
 
     function rejectCall() {
+        audio.pause();
+        audio.currentTime = 0;
         setCallRejected(true)
+        socket.current.emit("rejectCall", {
+            from: yourID,
+            to: caller
+        })
+        window.location.reload()
     }
 
-    function endCall(){
+    function endCall() {
         peer.destroy()
         setStartCalling(false)
+        // stream.getTracks().forEach(function(track) {
+        //     track.stop();
+        // });
         window.location.reload()
     }
 
@@ -144,7 +190,7 @@ function LiveVideo(props) {
     }
 
 
-    const confirmCall = (id)=> {
+    const confirmCall = (id) => {
         callPeer(id)
     }
 
@@ -156,15 +202,21 @@ function LiveVideo(props) {
                         return null;
                     }
                     return (
-                        <Popconfirm placement="topLeft" title={`Are you sure want to make a video call with ${key.name}?`} onConfirm={()=>confirmCall(key.id)} okText="Yes" cancelText="No">
-                            <Button
+                        <Popconfirm placement="topLeft"
+                                    title={`Are you sure want to make a video call with ${key.name}?`}
+                                    onConfirm={() => confirmCall(key.id)} okText="Yes" cancelText="No">
+
+
+
+                            <MButton
+                                variant="contained"
+                                color="secondary"
                                 key={key.id}
                                 style={{marginRight: 5}}
-                                type="primary"
-                                shape="round"
-                                icon={<VideoCameraOutlined/>}>
+                                startIcon={<VideoCameraOutlined/>}
+                            >
                                 {key.name}
-                            </Button>
+                            </MButton>
                         </Popconfirm>
 
                     )
@@ -182,7 +234,6 @@ function LiveVideo(props) {
 
         }
     }
-
 
 
     return (
@@ -229,6 +280,17 @@ function LiveVideo(props) {
                         {/*{userVideo && renderUserVideo()}*/}
                     </div>
                 </div>
+            </Modal>
+
+            {/*call Rejected...*/}
+            <Modal
+                title="Call Rejected!"
+                visible={callRejectDialog}
+                onOk={() => window.location.reload()}
+                onCancel={() => window.location.reload()}
+            >
+                <p>Your call has been Rejected. Please call other for continue practice.</p>
+
             </Modal>
         </div>
     );
