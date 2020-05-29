@@ -8,6 +8,9 @@ import adapter from 'webrtc-adapter';
 import {Card} from 'antd';
 import {VideoCameraOutlined} from '@ant-design/icons';
 import {Popconfirm, message} from 'antd';
+import ringtone from '../../../assets/ringtone.mp3'
+
+let audio;
 
 let peer;
 
@@ -29,6 +32,8 @@ function LiveVideo(props) {
 
     useEffect(() => {
         let streamRef;
+        audio = new Audio(ringtone)
+
         socket.current = io.connect(process.env.REACT_APP_SOCKET_URL);
 
         navigator.mediaDevices
@@ -50,8 +55,16 @@ function LiveVideo(props) {
             setUsers(users);
         });
 
+        //I Don't know why hey called twice. thats why I put a breaker here for stop ring tone.
+        let heyValue = 0;
         socket.current.on("hey", data => {
-            console.log(data)
+
+            if(heyValue === 0){
+                audio.play()
+                audio.loop = true
+            }
+            heyValue =  heyValue + 1;
+
             setReceivingCall(true);
             setCaller(data.from);
             setCallerName(data.name)
@@ -97,6 +110,10 @@ function LiveVideo(props) {
     }
 
     function acceptCall() {
+
+        audio.pause();
+        audio.currentTime = 0;
+
         setCallAccepted(true);
         setStartCalling(true)
         peer = new Peer({
@@ -134,7 +151,10 @@ function LiveVideo(props) {
     }
 
     function rejectCall() {
+        audio.pause();
+        audio.currentTime = 0;
         setCallRejected(true)
+        window.location.reload()
     }
 
     function endCall() {
