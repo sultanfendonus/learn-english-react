@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
 import { Colxx } from "../../components/common/CustomBootstrap";
 import IntlMessages from "../../helpers/IntlMessages";
-import { forgotPassword } from "../../redux/actions";
+import { forgotPassword } from "../../actions/AuthActions";
 import { NotificationManager } from "../../components/common/react-notifications";
 import { connect } from "react-redux";
 
@@ -12,7 +12,7 @@ class ForgotPassword extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: "demo@gogo.com"
+      email: ""
     };
   }
 
@@ -20,6 +20,7 @@ class ForgotPassword extends Component {
     if (!this.props.loading) {
       if (values.email !== "") {
         this.props.forgotPassword(values, this.props.history);
+        this.setState({email: ''})
       }
     }
   }
@@ -69,20 +70,20 @@ class ForgotPassword extends Component {
         <Colxx xxs="12" md="10" className="mx-auto my-auto">
           <Card className="auth-card">
             <div className="position-relative image-side ">
-              <p className="text-white h2">MAGIC IS IN THE DETAILS</p>
+              <p className="text-white h2">Password Reset</p>
               <p className="white mb-0">
                 Please use your e-mail to reset your password. <br />
                 If you are not a member, please{" "}
-                <NavLink to={`/register`} className="white">
+                <NavLink to={`/user/register`} className="white">
                   register
                 </NavLink>
                 .
               </p>
             </div>
             <div className="form-side">
-              <NavLink to={`/`} className="white">
-                <span className="logo-single" />
-              </NavLink>
+              {/*<NavLink to={`/`} className="white">*/}
+              {/*  <span className="logo-single" />*/}
+              {/*</NavLink>*/}
               <CardTitle className="mb-4">
                 <IntlMessages id="user.forgot-password" />
               </CardTitle>
@@ -109,8 +110,8 @@ class ForgotPassword extends Component {
                     </FormGroup>
 
                     <div className="d-flex justify-content-between align-items-center">
-                      <NavLink to={`/user/forgot-password`}>
-                        <IntlMessages id="user.forgot-password-question" />
+                      <NavLink to={`/user/register`}>
+                        Don't have an account?
                       </NavLink>
                       <Button
                         color="primary"

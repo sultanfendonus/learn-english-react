@@ -15,6 +15,7 @@ import {
     RESET_ERROR
 } from './actions';
 import MainApi from "../api/MainApi";
+import {message} from "antd";
 
 export const loginUser = (user, history) => async (dispatch) => {
     try {
@@ -61,6 +62,20 @@ export const logoutUser = () => async (dispatch) => {
     }
 }
 
+export const forgotPassword = (forgotUserMail, history) => async (dispatch) => {
+    try {
+        const response = await MainApi.post('/user/forgot-password', forgotUserMail)
+        if (response.status === 200){
+            message.success(response.data.msg)
+        }
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
+
 export const resetError = () => ({
     type: RESET_ERROR,
     payload: null
@@ -75,10 +90,6 @@ export const loginUserError = (message) => ({
     payload: {message}
 });
 
-export const forgotPassword = (forgotUserMail, history) => ({
-    type: FORGOT_PASSWORD,
-    payload: {forgotUserMail, history}
-});
 export const forgotPasswordSuccess = (forgotUserMail) => ({
     type: FORGOT_PASSWORD_SUCCESS,
     payload: forgotUserMail
