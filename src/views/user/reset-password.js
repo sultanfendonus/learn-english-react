@@ -4,9 +4,9 @@ import { NavLink } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
 import { Colxx } from "../../components/common/CustomBootstrap";
 import IntlMessages from "../../helpers/IntlMessages";
-import { resetPassword } from "../../redux/actions";
 import { NotificationManager } from "../../components/common/react-notifications";
 import { connect } from "react-redux";
+import {resetPassword} from "../../actions/AuthActions"
 
 class ResetPassword extends Component {
     constructor(props) {
@@ -19,11 +19,12 @@ class ResetPassword extends Component {
 
     onResetPassword = (values) => {
         if (!this.props.loading) {
-            const params = new URLSearchParams(this.props.location.search);
-            const oobCode = params.get('oobCode');
-            if (oobCode) {
+
+            const uuid = this.props.match.params.uuid;
+
+            if (uuid) {
                 if (values.newPassword !== "") {
-                    this.props.resetPassword({ newPassword: values.newPassword, resetPasswordCode: oobCode, history: this.props.history });
+                    this.props.resetPassword(uuid, values.newPassword)
                 }
             } else {
                 NotificationManager.warning(
@@ -47,6 +48,8 @@ class ResetPassword extends Component {
         }
         return errors;
     }
+
+
 
     componentDidUpdate() {
         if (this.props.error) {
@@ -82,20 +85,15 @@ class ResetPassword extends Component {
                 <Colxx xxs="12" md="10" className="mx-auto my-auto">
                     <Card className="auth-card">
                         <div className="position-relative image-side ">
-                            <p className="text-white h2">MAGIC IS IN THE DETAILS</p>
+                            <p className="text-white h2">Password Reset</p>
                             <p className="white mb-0">
-                                Please use your e-mail to reset your password. <br />
-                                If you are not a member, please{" "}
-                                <NavLink to={`/register`} className="white">
-                                    register
-                </NavLink>
-                                .
+                                Please set your new password. <br />
               </p>
                         </div>
                         <div className="form-side">
-                            <NavLink to={`/`} className="white">
-                                <span className="logo-single" />
-                            </NavLink>
+                            {/*<NavLink to={`/`} className="white">*/}
+                            {/*    <span className="logo-single" />*/}
+                            {/*</NavLink>*/}
                             <CardTitle className="mb-4">
                                 <IntlMessages id="user.reset-password" />
                             </CardTitle>

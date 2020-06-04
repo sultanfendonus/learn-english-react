@@ -35,7 +35,7 @@ const User = ({ match }) => {
             render={props => <ForgotPassword {...props} />}
           />
           <Route
-            path={`${match.url}/reset-password`}
+            path={`${match.url}/reset-password/:uuid?`}
             render={props => <ResetPassword {...props} />}
           />
           <Route

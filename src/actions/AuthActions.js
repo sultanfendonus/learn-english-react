@@ -15,6 +15,7 @@ import {
     RESET_ERROR
 } from './actions';
 import MainApi from "../api/MainApi";
+import {message} from "antd";
 
 export const loginUser = (user, history) => async (dispatch) => {
     try {
@@ -61,6 +62,34 @@ export const logoutUser = () => async (dispatch) => {
     }
 }
 
+export const forgotPassword = (forgotUserMail, history) => async (dispatch) => {
+    try {
+        const response = await MainApi.post('/user/forgot-password', {email: forgotUserMail})
+        if (response.status === 200){
+            message.success(response.data.msg)
+        }
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
+export const resetPassword = (uuid, password) => async (dispatch) => {
+    try {
+        const response = await MainApi.post('/user/reset-password', {uuid, password})
+        if (response.status === 200){
+            message.success(response.data.msg)
+        }
+
+    } catch (error) {
+        console.log(error);
+        message.error("Something wrong.")
+    }
+}
+
+
+
 export const resetError = () => ({
     type: RESET_ERROR,
     payload: null
@@ -75,10 +104,6 @@ export const loginUserError = (message) => ({
     payload: {message}
 });
 
-export const forgotPassword = (forgotUserMail, history) => ({
-    type: FORGOT_PASSWORD,
-    payload: {forgotUserMail, history}
-});
 export const forgotPasswordSuccess = (forgotUserMail) => ({
     type: FORGOT_PASSWORD_SUCCESS,
     payload: forgotUserMail
@@ -88,18 +113,7 @@ export const forgotPasswordError = (message) => ({
     payload: {message}
 });
 
-export const resetPassword = ({resetPasswordCode, newPassword, history}) => ({
-    type: RESET_PASSWORD,
-    payload: {resetPasswordCode, newPassword, history}
-});
-export const resetPasswordSuccess = (newPassword) => ({
-    type: RESET_PASSWORD_SUCCESS,
-    payload: newPassword
-});
-export const resetPasswordError = (message) => ({
-    type: RESET_PASSWORD_ERROR,
-    payload: {message}
-});
+
 
 
 // export const registerUser = (user, history) => ({

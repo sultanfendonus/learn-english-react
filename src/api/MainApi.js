@@ -9,7 +9,7 @@ const MainApi = axios.create({
     }
 })
 
-const UNAUTHORIZED = 401;
+const UNAUTHORIZED = 403;
 MainApi.interceptors.response.use(
     response => response,
     error => {

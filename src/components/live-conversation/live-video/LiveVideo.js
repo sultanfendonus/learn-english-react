@@ -54,7 +54,6 @@ function LiveVideo(props) {
             socket.current.emit("setName", {id: id, name: props.name})
         });
         socket.current.on("allUsers", users => {
-            console.log(users);
             setUsers(users);
         });
 
@@ -85,6 +84,7 @@ function LiveVideo(props) {
             streamRef.getTracks().forEach(function (track) {
                 track.stop();
             });
+            socket.current.emit("end-session",{})
 
         }
     }, []);
@@ -205,7 +205,6 @@ function LiveVideo(props) {
                         <Popconfirm placement="topLeft"
                                     title={`Are you sure want to make a video call with ${key.name}?`}
                                     onConfirm={() => confirmCall(key.id)} okText="Yes" cancelText="No">
-
 
 
                             <MButton
