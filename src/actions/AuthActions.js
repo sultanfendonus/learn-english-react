@@ -75,6 +75,20 @@ export const forgotPassword = (forgotUserMail, history) => async (dispatch) => {
 }
 
 
+export const resetPassword = (uuid, password) => async (dispatch) => {
+    try {
+        const response = await MainApi.post('/user/reset-password', {uuid, password})
+        if (response.status === 200){
+            message.success(response.data.msg)
+        }
+
+    } catch (error) {
+        console.log(error);
+        message.error("Something wrong.")
+    }
+}
+
+
 
 export const resetError = () => ({
     type: RESET_ERROR,
@@ -99,18 +113,7 @@ export const forgotPasswordError = (message) => ({
     payload: {message}
 });
 
-export const resetPassword = ({resetPasswordCode, newPassword, history}) => ({
-    type: RESET_PASSWORD,
-    payload: {resetPasswordCode, newPassword, history}
-});
-export const resetPasswordSuccess = (newPassword) => ({
-    type: RESET_PASSWORD_SUCCESS,
-    payload: newPassword
-});
-export const resetPasswordError = (message) => ({
-    type: RESET_PASSWORD_ERROR,
-    payload: {message}
-});
+
 
 
 // export const registerUser = (user, history) => ({
