@@ -64,7 +64,7 @@ export const logoutUser = () => async (dispatch) => {
 
 export const forgotPassword = (forgotUserMail, history) => async (dispatch) => {
     try {
-        const response = await MainApi.post('/user/forgot-password', forgotUserMail)
+        const response = await MainApi.post('/user/forgot-password', {email: forgotUserMail})
         if (response.status === 200){
             message.success(response.data.msg)
         }

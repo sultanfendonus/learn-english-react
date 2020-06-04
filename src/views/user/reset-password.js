@@ -85,20 +85,15 @@ class ResetPassword extends Component {
                 <Colxx xxs="12" md="10" className="mx-auto my-auto">
                     <Card className="auth-card">
                         <div className="position-relative image-side ">
-                            <p className="text-white h2">MAGIC IS IN THE DETAILS</p>
+                            <p className="text-white h2">Password Reset</p>
                             <p className="white mb-0">
-                                Please use your e-mail to reset your password. <br />
-                                If you are not a member, please{" "}
-                                <NavLink to={`/register`} className="white">
-                                    register
-                </NavLink>
-                                .
+                                Please set your new password. <br />
               </p>
                         </div>
                         <div className="form-side">
-                            <NavLink to={`/`} className="white">
-                                <span className="logo-single" />
-                            </NavLink>
+                            {/*<NavLink to={`/`} className="white">*/}
+                            {/*    <span className="logo-single" />*/}
+                            {/*</NavLink>*/}
                             <CardTitle className="mb-4">
                                 <IntlMessages id="user.reset-password" />
                             </CardTitle>

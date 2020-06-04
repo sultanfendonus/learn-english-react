@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Row, Card, CardTitle, Label, FormGroup, Button } from "reactstrap";
+import { Row, Card, CardTitle, Label, FormGroup } from "reactstrap";
 import { NavLink } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
 import { Colxx } from "../../components/common/CustomBootstrap";
@@ -7,6 +7,7 @@ import IntlMessages from "../../helpers/IntlMessages";
 import { forgotPassword } from "../../actions/AuthActions";
 import { NotificationManager } from "../../components/common/react-notifications";
 import { connect } from "react-redux";
+import { Input, Button } from 'antd';
 
 class ForgotPassword extends Component {
   constructor(props) {
@@ -16,11 +17,11 @@ class ForgotPassword extends Component {
     };
   }
 
-  onForgotPassword = (values) => {
+  onForgotPassword = (email) => {
     if (!this.props.loading) {
-      if (values.email !== "") {
-        this.props.forgotPassword(values, this.props.history);
-        this.setState({email: ''})
+      if (email !== "") {
+        this.props.forgotPassword(email, this.props.history);
+        this.setState({email: ""})
       }
     }
   }
@@ -88,47 +89,23 @@ class ForgotPassword extends Component {
                 <IntlMessages id="user.forgot-password" />
               </CardTitle>
 
-              <Formik
-                initialValues={initialValues}
-                onSubmit={this.onForgotPassword}>
-                {({ errors, touched }) => (
-                  <Form className="av-tooltip tooltip-label-bottom">
-                    <FormGroup className="form-group has-float-label">
-                      <Label>
-                        <IntlMessages id="user.email" />
-                      </Label>
-                      <Field
-                        className="form-control"
-                        name="email"
-                        validate={this.validateEmail}
-                      />
-                      {errors.email && touched.email && (
-                        <div className="invalid-feedback d-block">
-                          {errors.email}
-                        </div>
-                      )}
-                    </FormGroup>
+              <div>
+                <Input
+                    placeholder="Your Email"
+                    value={this.state.email}
+                    onChange={(e)=>this.setState({email: e.target.value})}
+                />
+                <Button onClick={()=>this.onForgotPassword(this.state.email)} style={{marginTop: 5}} type="primary" size='medium'>
+                  Reset
+                </Button>
+              </div>
 
-                    <div className="d-flex justify-content-between align-items-center">
-                      <NavLink to={`/user/register`}>
-                        Don't have an account?
-                      </NavLink>
-                      <Button
-                        color="primary"
-                        className={`btn-shadow btn-multiple-state ${this.props.loading ? "show-spinner" : ""}`}
-                        size="lg"
-                      >
-                        <span className="spinner d-inline-block">
-                          <span className="bounce1" />
-                          <span className="bounce2" />
-                          <span className="bounce3" />
-                        </span>
-                        <span className="label"><IntlMessages id="user.reset-password-button" /></span>
-                      </Button>
-                    </div>
-                  </Form>
-                )}
-              </Formik>
+
+
+              <NavLink to={`/user/register`}>
+                Don't have an account?
+              </NavLink>
+
             </div>
           </Card>
         </Colxx>
