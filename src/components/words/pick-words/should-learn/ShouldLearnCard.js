@@ -20,7 +20,7 @@ class ShouldLearnCard extends Component {
         return (
             <div style={{marginTop: '10px'}}>
                 <h2>You should practice -</h2>
-                <WordListComponents wordList={this.props.shouldLearnHistory} emptyMessage="This feature will enable soon."/>
+                <WordListComponents color={'#5674b9'} wordList={this.props.shouldLearnHistory} emptyMessage="This feature will enable soon."/>
             </div>
         );
     }
