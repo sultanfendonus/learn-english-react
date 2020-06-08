@@ -7,6 +7,8 @@ import {registerUser, resetError} from "../../actions/index";
 import IntlMessages from "../../helpers/IntlMessages";
 import {Colxx} from "../../components/common/CustomBootstrap";
 import {NotificationManager} from "../../components/common/react-notifications";
+import FacebookIcon from "@material-ui/icons/Facebook";
+import {Button as MButton} from "@material-ui/core";
 
 class Register extends Component {
     constructor(props) {
@@ -127,6 +129,15 @@ class Register extends Component {
                                     </Button>
                                 </div>
                             </Form>
+                            <MButton
+                                variant="contained"
+                                // color="#4556ac"
+                                style={{backgroundColor: '#4556ac', color: 'white', marginTop: 10, marginBottom: 10}}
+                                startIcon={<FacebookIcon />}
+                                onClick={()=>window.location.href = `${process.env.REACT_APP_BASE_URL}/login/facebook`}
+                            >
+                                Register with facebook
+                            </MButton>
                             <p>Already have an account? <a style={{color: 'blue'}} href="/user/login">Log in</a></p>
                         </div>
                     </Card>
