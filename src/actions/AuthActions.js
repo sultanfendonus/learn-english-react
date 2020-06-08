@@ -88,6 +88,25 @@ export const resetPassword = (uuid, password) => async (dispatch) => {
     }
 }
 
+export const fbLoginValidation = (token) => async (dispatch) => {
+    try {
+        const response = await MainApi.get('/user/get-profile',{
+            headers: {
+                "Authorization": `Token ${token}`
+            }
+        })
+        if (response.status === 200){
+            localStorage.setItem('token', token);
+            localStorage.setItem('firstName', response.data.first_name);
+            localStorage.setItem('lastName', response.data.last_name);
+            window.location.href = "/"
+        }
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 
 
 export const resetError = () => ({

@@ -9,6 +9,7 @@ import { Formik, Form, Field } from "formik";
 import { loginUser,resetError } from "../../actions";
 import { Colxx } from "../../components/common/CustomBootstrap";
 import IntlMessages from "../../helpers/IntlMessages";
+import FacebookLoginContainer from "../../components/facebook-login/FacebookLoginContainer";
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -142,6 +143,8 @@ class Login extends Component {
                 )}
               </Formik>
               <p>Don't have an account? <a style={{color: 'blue'}} href="/user/register">Register Now!</a></p>
+
+              {/*<FacebookLoginContainer/>*/}
 
             </div>
           </Card>
