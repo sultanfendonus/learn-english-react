@@ -9,6 +9,10 @@ import { Formik, Form, Field } from "formik";
 import { loginUser,resetError } from "../../actions";
 import { Colxx } from "../../components/common/CustomBootstrap";
 import IntlMessages from "../../helpers/IntlMessages";
+import FacebookLoginContainer from "../../components/facebook-login/FacebookLoginContainer";
+import {Button as MButton} from '@material-ui/core';
+import FacebookIcon from '@material-ui/icons/Facebook';
+
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -142,6 +146,17 @@ class Login extends Component {
                 )}
               </Formik>
               <p>Don't have an account? <a style={{color: 'blue'}} href="/user/register">Register Now!</a></p>
+
+              <MButton
+                  variant="contained"
+                  // color="#4556ac"
+                  style={{backgroundColor: '#4556ac', color: 'white', marginTop: 10}}
+                  startIcon={<FacebookIcon />}
+                  onClick={()=>window.location.href = `${process.env.REACT_APP_BASE_URL}/login/facebook`}
+              >
+                Login with facebook
+              </MButton>
+
 
             </div>
           </Card>

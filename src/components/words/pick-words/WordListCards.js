@@ -20,7 +20,7 @@ class WordListCards extends Component {
         return (
             <div>
                 <h2>Today's lesson-</h2>
-                <WordListComponents isHighlightFirstWord={true} wordList={this.props.todaysHistory} emptyMessage="Please pick some words to enable this feature."/>
+                <WordListComponents color={'#ad236f'} isHighlightFirstWord={true} wordList={this.props.todaysHistory} emptyMessage="Please pick some words to enable this feature."/>
             </div>
         );
     }

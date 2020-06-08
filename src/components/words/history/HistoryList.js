@@ -10,6 +10,7 @@ import moment from "moment";
 import ShowWordModal from "../pick-words/ShowWordModal";
 import {renderLocalFromNow} from '../../../helpers/Time'
 import {wordPracticeIndicator} from "../../../helpers/Word";
+import Avatar from '@material-ui/core/Avatar';
 
 function mapStateToProps(state) {
     return {};
@@ -38,11 +39,19 @@ class HistoryList extends Component {
                     <div
                         className="d-block position-relative"
                     >
-                        <img
-                            src={history.image || "/assets/img/vocabulary-icon-png-4.png"}
-                            alt={history.english_word}
-                            className="list-thumbnail border-0"
-                        />
+                        {/*<img*/}
+                        {/*    src={history.image || "/assets/img/vocabulary-icon-png-4.png"}*/}
+                        {/*    alt={history.english_word}*/}
+                        {/*    className="list-thumbnail border-0"*/}
+                        {/*/>*/}
+                        <Avatar
+                            style={{
+                                width: 80,
+                                height: 80,
+                                backgroundColor: 'darkcyan'
+                            }}
+                        >{history.english_word.charAt(0).toUpperCase()}
+                        </Avatar>
                         <Badge
                             key={index}
                             className="position-absolute badge-top-right"
@@ -55,7 +64,7 @@ class HistoryList extends Component {
 
                     <div className="pl-3 pt-2 pr-2 pb-2">
                         <div>
-                            <p className="list-item-heading">{history.english_word}</p>
+                            <p style={{fontWeight: 'bold'}} className="list-item-heading">{history.english_word}</p>
                             <div className="pr-4">
                                 <p className="text-muted mb-1 text-small">
                                     {history.bangla_meaning}

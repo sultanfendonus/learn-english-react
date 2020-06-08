@@ -35,6 +35,7 @@ import TopnavNotifications from "./Topnav.Notifications";
 import TopnavDarkSwitch from "./Topnav.DarkSwitch";
 
 import { getDirection, setDirection } from "../../helpers/Utils";
+import SearchBar from "../../components/searchbar/SearchBar";
 class TopNav extends Component {
   constructor(props) {
     super(props);
@@ -221,22 +222,7 @@ class TopNav extends Component {
             <MobileMenuIcon />
           </NavLink>
 
-          {/*<div className="search" data-search-path="/app/pages/search">*/}
-          {/*  <Input*/}
-          {/*    name="searchKeyword"*/}
-          {/*    id="searchKeyword"*/}
-          {/*    placeholder={messages["menu.search"]}*/}
-          {/*    value={this.state.searchKeyword}*/}
-          {/*    onChange={e => this.handleSearchInputChange(e)}*/}
-          {/*    onKeyPress={e => this.handleSearchInputKeyPress(e)}*/}
-          {/*  />*/}
-          {/*  <span*/}
-          {/*    className="search-icon"*/}
-          {/*    onClick={e => this.handleSearchIconClick(e)}*/}
-          {/*  >*/}
-          {/*    <i className="simple-icon-magnifier" />*/}
-          {/*  </span>*/}
-          {/*</div>*/}
+          <SearchBar />
 
           {/*<div className="d-inline-block">*/}
           {/*  <UncontrolledDropdown className="ml-2">*/}
