@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { injectIntl } from "react-intl";
-import { Avatar } from 'antd';
+import Avatar from '@material-ui/core/Avatar';
 import { UserOutlined } from '@ant-design/icons';
 
 import {
@@ -285,12 +285,11 @@ class TopNav extends Component {
           <div className="user d-inline-block">
             <UncontrolledDropdown className="dropdown-menu-right">
               <DropdownToggle className="p-0" color="empty">
-                <span className="name mr-1">Hello User</span>
-                <span>
-                  {/*<img alt="Profile" src="/assets/img/profile-pic-l.jpg" />*/}
-                  <Avatar size="large" icon={<UserOutlined />} />
 
-                </span>
+                  <Avatar style={{width: 50, height: 50, border: '1px solid'}} variant="circle" src={localStorage.getItem('user-photo')} >
+                    <UserOutlined />
+                  </Avatar>
+
               </DropdownToggle>
               <DropdownMenu className="mt-3" right>
                 {/*<DropdownItem>Account</DropdownItem>*/}

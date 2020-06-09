@@ -56,6 +56,7 @@ export const logoutUser = () => async (dispatch) => {
         localStorage.removeItem('token')
         localStorage.removeItem('firstName')
         localStorage.removeItem('lastName')
+        localStorage.removeItem('user-photo')
         window.location.href = '/'
     } catch (error) {
         console.log(error);
@@ -99,6 +100,7 @@ export const fbLoginValidation = (token) => async (dispatch) => {
             localStorage.setItem('token', token);
             localStorage.setItem('firstName', response.data.first_name);
             localStorage.setItem('lastName', response.data.last_name);
+            localStorage.setItem('user-photo', response.data.user_photo);
             window.location.href = "/"
         }
 
