@@ -30,7 +30,7 @@ const data = [{
 },
     {
     id: "feedback",
-    icon: "iconsminds-unlike",
+    icon: "iconsminds-speach-bubble-asking",
     label: "menu.feedback",
     to: "/app/feedback",
     subs: [
