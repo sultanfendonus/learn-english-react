@@ -35,7 +35,7 @@ class WordDefination extends Component {
             let color = tagColors[Math.floor(Math.random() * tagColors.length)];
             return(
                 <div key={index} style={{display: 'flex', padding: '10px', flexDirection: 'column', marginBottom: '5px', border: `${color} 1px solid`}}>
-                    <p>{index + 1}. ({defination.partOfSpeech}) {defination.definition}</p>
+                    <p style={{fontWeight: 'bold'}}>{index + 1}. ({defination.partOfSpeech}) {defination.definition}</p>
 
                     <div style={defination.similarTo && {marginBottom: '2px'}}>
                         <span style={defination.similarTo && {marginRight: '5px'}}>{defination.similarTo && `Similar word - `}</span>
@@ -52,7 +52,7 @@ class WordDefination extends Component {
                         {defination.antonyms && this.renderSimilarWord(defination.antonyms)}
                     </div>
                     <p>{defination.examples && `Examples:`}</p>
-                    {defination.examples && this.renderExample(defination.examples)}
+                    <p style={{fontWeight: 'bold', fontSize: 12}}>{defination.examples && this.renderExample(defination.examples)}</p>
 
                 </div>
             )
