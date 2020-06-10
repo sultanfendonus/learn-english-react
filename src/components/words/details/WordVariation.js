@@ -23,7 +23,7 @@ class WordVariation extends Component {
             return(
                 <div key={index} style={{display: 'flex', marginBottom: '5px'}}>
                     <div>
-                        <span>{v[0]}</span>
+                        <span style={{fontWeight: 'bold'}}>{v[0]}</span>
                         <span style={{marginLeft: '5px', marginRight: '5px'}}> - </span>
                         {this.renderEnglishMeaning(v[1])}
                     </div>
@@ -37,7 +37,7 @@ class WordVariation extends Component {
                 <React.Fragment key={index}>
                     <Card key={index} className="mb-3">
                         <div className="defination-container">
-                            <p>{variant[0]}</p>
+                            <p style={{fontWeight: 'bold', fontSize: 18}}>{variant[0]}</p>
                             <div>
                                 {this.renderVariant(variant[2])}
                             </div>

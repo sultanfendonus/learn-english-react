@@ -23,14 +23,14 @@ class DetailsDesign extends Component {
         }
 
         return(
-            <p>{syllablesWord}</p>
+            <p style={{minWidth: 100}}>{syllablesWord}</p>
         )
     }
 
     renderPronunciation(pronunciation){
         if(pronunciation.all){
             return(
-                <p>{pronunciation.all}</p>
+                <p style={{minWidth: 100}}>{pronunciation.all}</p>
             )
         }
     }

@@ -1,15 +1,46 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {searchAWord} from '../../actions/index'
+import {searchAWord, getASingleWord, updateASingleWord, pickAWord, updateASingleWordImages,
+    getTodaysHistory, pushHistoryToTodayList, pickWordFromSearchList} from '../../actions/index'
 import {Input} from "reactstrap";
 import {menuHiddenBreakpoint} from "../../constants/defaultValues";
+import { Modal } from 'antd';
+import Button from '@material-ui/core/Button';
+import AddIcon from '@material-ui/icons/Add';
+import {Loader} from "rsuite";
+import axios from "axios";
+
+
+
 
 function mapStateToProps(state) {
-    return {};
+    return {
+        wordSearchResult: state.WordReducers.wordSearchResult
+    };
 }
 
 class SearchBar extends Component {
-    state = {searchKeyword: ''}
+    state = {searchKeyword: '', visible: false}
+
+    showModal = () => {
+        this.setState({
+            visible: true,
+        });
+    };
+
+    handleOk = e => {
+        console.log(e);
+        this.setState({
+            visible: false,
+        });
+    };
+
+    handleCancel = e => {
+        console.log(e);
+        this.setState({
+            visible: false,
+        });
+    };
 
     handleSearchInputChange(e){
         this.setState({searchKeyword: e.target.value})
@@ -24,6 +55,7 @@ class SearchBar extends Component {
 
     search(word){
         this.props.searchAWord(word)
+        this.setState({visible: true})
     }
 
     handleSearchIconClick = e => {
@@ -88,6 +120,97 @@ class SearchBar extends Component {
         }
     };
 
+    renderLoader(){
+        return(
+            <div style={{textAlign: 'center'}}>
+                <Loader/>
+                <p>Loading...</p>
+            </div>
+        )
+    }
+
+    pickWord(word){
+        this.props.pickWordFromSearchList(word._id)
+
+        if (!word.bangla_meaning || word.bangla_meaning === undefined || word.bangla_meaning === "") {
+            this.getTranslationFromGoogle(word)
+        } else {
+            console.log('no need to save the word')
+            let image = word.images && word.images[0].urls.regular;
+
+            this.props.pickAWord({
+                english_word: word.full_word,
+                bangla_meaning: word.bangla_meaning,
+                word_id: word._id,
+                image: image || null
+            })
+
+        }
+
+        if (!word.images || word.images === undefined
+            || word.images === "" || word.images.length === 0) {
+            this.getImagesFromUnsplash(word)
+        } else {
+            console.log("No need to save Image.")
+        }
+    }
+
+    getTranslationFromGoogle = word => {
+        let text = word.full_word
+        axios
+            .get(
+                `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=bn&hl=en-GB&dt=t&dt=bd&q=${text}`
+            )
+            .then(result => {
+                this.props.updateASingleWord({
+                    id: word._id,
+                    bangla_meaning: result.data[0][0][0],
+                    additional_meaning: result.data
+                })
+
+                this.props.pickAWord({
+                    english_word: word.full_word,
+                    bangla_meaning: result.data[0][0][0],
+                    word_id: word._id
+                })
+            });
+    };
+
+
+    async getImagesFromUnsplash(word) {
+        //No need this try catch here. but I put it here only for I am too lazy.
+        try {
+            this.props.updateASingleWordImages({
+                full_word: word.full_word,
+                word_id: word._id,
+            })
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    renderSearchList(){
+        if(this.props.wordSearchResult.length === 0){
+            return (<p>No word found! </p>)
+        }
+        return this.props.wordSearchResult.map((word)=>{
+            return(
+                <div key={word._id} style={{display: "flex", justifyContent: 'space-between', marginTop: 10}}>
+                    <h3 style={{fontWeight: "bold"}}>{word.full_word}</h3>
+                    {word.isPicked ? <p>Picked</p>: <Button
+                        onClick={()=>this.pickWord(word)}
+                        variant="contained"
+                        color="primary"
+                        startIcon={<AddIcon />}
+                    >
+                        Pick Word
+                    </Button>}
+
+                </div>
+            )
+        })
+    }
+
     render() {
         return (
             <div className="search" data-search-path="/app/pages/search">
@@ -105,11 +228,22 @@ class SearchBar extends Component {
                 >
               <i className="simple-icon-magnifier" />
             </span>
+
+                <Modal
+                    title="Search Result"
+                    visible={this.state.visible}
+                    onOk={this.handleOk}
+                    onCancel={this.handleCancel}
+                    footer = {null}
+                >
+                    {this.props.wordSearchResult ? this.renderSearchList(): this.renderLoader()}
+                </Modal>
             </div>
         );
     }
 }
 
 export default connect(
-    mapStateToProps, {searchAWord}
+    mapStateToProps, {searchAWord, getASingleWord, updateASingleWord, pickAWord, updateASingleWordImages,
+        getTodaysHistory, pushHistoryToTodayList, pickWordFromSearchList}
 )(SearchBar);

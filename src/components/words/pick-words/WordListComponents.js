@@ -51,8 +51,8 @@ class WordListComponents extends Component {
                                     <div className='image-container-list' style={{padding: 10}}>
                                         <Avatar
                                             style={index === 0 && this.props.isHighlightFirstWord ? {
-                                                width: 145,
-                                                height: 145,
+                                                width: 140,
+                                                height: 140,
                                                 backgroundColor: `${this.props.color}`
                                             } : {width: 80, height: 80, backgroundColor: `${this.props.color}`}}
                                         >{word.english_word.charAt(0).toUpperCase()}

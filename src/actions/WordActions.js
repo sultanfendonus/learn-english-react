@@ -4,7 +4,8 @@ import {
     LOGIN_USER_ERROR,
     LOGIN_USER_SUCCESS, SINGLE_WORD, SET_SINGLE_WORD_EMPTY,
     REORDER_TODAY_HISTORY,
-    SET_WORD_SEARCH_RESULT
+    SET_WORD_SEARCH_RESULT,
+    SET_WORD_AS_PICKED
 } from "./actions";
 
 export const getASingleWord = () => async (dispatch) => {
@@ -70,4 +71,8 @@ export const searchAWord = (word) => async (dispatch) => {
         // error.response && dispatch({type : LOGIN_USER_ERROR ,payload: {message: error.response.data.errors[0].msg}});
         console.log(error);
     }
+}
+
+export const pickWordFromSearchList = (wordId) => async (dispatch) => {
+    dispatch({type: SET_WORD_AS_PICKED, payload: wordId});
 }

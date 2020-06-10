@@ -91,6 +91,7 @@ class ForgotPassword extends Component {
 
               <div>
                 <Input
+                    style={{fontSize: '18px'}}
                     placeholder="Your Email"
                     value={this.state.email}
                     onChange={(e)=>this.setState({email: e.target.value})}

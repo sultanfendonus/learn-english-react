@@ -30,7 +30,7 @@ class ReviewWordList extends Component {
                       // extra={<a href="#">More</a>}
                       style={{ width: 300, margin: 10 }}>
 
-                    <h2 style={{textAlign: 'center'}}>{word.english_word}</h2>
+                    <h2 style={{textAlign: 'center', fontWeight: "bold"}}>{word.english_word}</h2>
 
                     <div style={{display: 'flex', justifyContent: 'space-between'}}>
 
