@@ -7,7 +7,7 @@ export default function Landing(props) {
     return (
         <div >
             <HomeAppBar />
-            <div style={{padding: 10}}>
+            <div style={{padding: 10, background: '#eeeff3'}}>
                 {props.children}
             </div>
 

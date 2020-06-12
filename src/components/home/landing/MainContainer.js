@@ -1,16 +1,16 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import MainContainer from "../../components/home/landing/MainContainer";
+import IntroSection from "./IntroSection";
 
 function mapStateToProps(state) {
     return {};
 }
 
-class Landing extends Component {
+class MainContainer extends Component {
     render() {
         return (
             <div>
-                <MainContainer />
+                <IntroSection />
             </div>
         );
     }
@@ -18,4 +18,4 @@ class Landing extends Component {
 
 export default connect(
     mapStateToProps,
-)(Landing);
+)(MainContainer);

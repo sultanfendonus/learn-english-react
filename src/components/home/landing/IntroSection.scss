@@ -1,0 +1,33 @@
+.intro-container{
+  display: flex;
+  justify-content: space-around;
+}
+
+.intro-container-section1{
+  width: 800px;
+  margin-top: 150px;
+}
+
+.intro-container-section2{
+
+}
+
+.intro-container-section2 img {
+  width: 700px;
+}
+
+@media only screen and (max-width: 1128px) {
+  .intro-container{
+    flex-direction: column;
+  }
+
+  .intro-container-section1{
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .intro-container-section2 img {
+    width: 100%;
+  }
+
+}

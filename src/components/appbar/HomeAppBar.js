@@ -29,8 +29,8 @@ export default function Landing(props) {
                     <Typography variant="h6" className={classes.title}>
                         En-Bn.com
                     </Typography>
-                    <Button color="inherit">Register</Button>
-                    <Button color="inherit">Login</Button>
+                    <Button href='/user/register' color="inherit">Register</Button>
+                    <Button href='/app' color="inherit">Login</Button>
                 </Toolbar>
             </AppBar>
         </div>
