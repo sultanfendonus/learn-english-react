@@ -27,6 +27,11 @@ const ViewError = React.lazy(() =>
   import(/* webpackChunkName: "views-error" */ './views/error')
 );
 
+const ViewHome = React.lazy(() =>
+    import(/* webpackChunkName: "views-error" */ './views/home')
+);
+
+
 const AuthRoute = ({ component: Component, authUser, ...rest }) => {
   return (
     <Route
@@ -87,6 +92,10 @@ class App extends Component {
                     render={props => <ViewUser {...props} />}
                   />
                   <Route
+                      path="/home"
+                      render={props => <ViewHome {...props} />}
+                  />
+                  <Route
                     path="/error"
                     exact
                     render={props => <ViewError {...props} />}
@@ -96,6 +105,8 @@ class App extends Component {
                     exact
                     render={props => <ViewMain {...props} />}
                   />
+
+
                   <Redirect to="/error" />
                 </Switch>
               </Router>

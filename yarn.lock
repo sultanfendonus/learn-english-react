@@ -11351,7 +11351,7 @@ react-yandex-maps@^3.0.2:
     prop-types "^15.6.2"
     react-display-name "^0.2.4"
 
-react@^16.0.0, react@^16.10.1, react@^16.9.0:
+react@^16.0.0, react@^16.10.1, react@^16.13.1:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react/-/react-16.13.1.tgz#2e818822f1a9743122c063d6410d85c1e3afe48e"
   integrity sha512-YMZQQq32xHLX0bz5Mnibv1/LHb3Sqzngu7xstSM+vrkE5Kzr9xE0yMByK5kMoTK30YVJE61WfbxIFFvfeDKT1w==
