@@ -27,7 +27,7 @@ export const loginUser = (user, history) => async (dispatch) => {
             localStorage.setItem('firstName', response.data.first_name);
             localStorage.setItem('lastName', response.data.last_name);
             dispatch({type : LOGIN_USER_SUCCESS ,payload: response.data});
-            window.location.href = "/"
+            window.location.href = "/app"
         }
     } catch (error) {
         error.response && dispatch({type : LOGIN_USER_ERROR ,payload: {message: error.response.data.errors[0].msg}});
@@ -43,7 +43,7 @@ export const registerUser = (user, history) => async (dispatch) => {
             localStorage.setItem('firstName', response.data.first_name);
             localStorage.setItem('lastName', response.data.last_name);
             dispatch({type : REGISTER_USER_SUCCESS ,payload: response.data});
-            window.location.href = "/"
+            window.location.href = "/app"
         }
     } catch (error) {
         error.response && dispatch({type : REGISTER_USER_ERROR ,payload: {message: error.response.data.errors[0].msg}});
@@ -57,7 +57,7 @@ export const logoutUser = () => async (dispatch) => {
         localStorage.removeItem('firstName')
         localStorage.removeItem('lastName')
         localStorage.removeItem('user-photo')
-        window.location.href = '/'
+        window.location.href = '/app'
     } catch (error) {
         console.log(error);
     }
