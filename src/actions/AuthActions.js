@@ -101,7 +101,7 @@ export const fbLoginValidation = (token) => async (dispatch) => {
             localStorage.setItem('firstName', response.data.first_name);
             localStorage.setItem('lastName', response.data.last_name);
             localStorage.setItem('user-photo', response.data.user_photo);
-            window.location.href = "/"
+            window.location.href = "/app"
         }
 
     } catch (error) {

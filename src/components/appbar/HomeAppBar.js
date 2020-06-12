@@ -26,7 +26,10 @@ export default function Landing(props) {
         <div >
             <AppBar position="static">
                 <Toolbar>
-                    <Typography variant="h6" className={classes.title}>
+                    <Typography
+                        onClick={()=> window.location.href='/'}
+                        style={{cursor: 'pointer'}}
+                        variant="h6" className={classes.title}>
                         En-Bn.com
                     </Typography>
                     <Button href='/user/register' color="inherit">Register</Button>
