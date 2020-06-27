@@ -131,14 +131,14 @@ function LiveVideo(props) {
             config: {
                 iceServers: [
                     {
-                        urls: "stun:coturn.en-bn.com:3478",
-                        username: "sultan",
-                        credential: "123456"
+                        urls: "stun:numb.viagenie.ca",
+                        username: "sunnysultan1640@gmail.com",
+                        credential: "16407916"
                     },
                     {
-                        urls: "turn:coturn.en-bn.com:3478",
-                        username: "sultan",
-                        credential: "123456"
+                        urls: "turn:numb.viagenie.ca",
+                        username: "sunnysultan1640@gmail.com",
+                        credential: "16407916"
                     }
                 ]
             },
